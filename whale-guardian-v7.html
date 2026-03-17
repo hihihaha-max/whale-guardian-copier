@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦞 Whale Guardian Copier v7 | Multi-Chain · 3 Lang · 11 Skills</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#020b14;--surface:#041825;--card:#071f30;--border:#0a3a5c;
+  --accent:#F0B90B;--accent2:#00d4aa;--accent3:#ff6b35;
+  --danger:#ff3b3b;--text:#e8f4f8;--muted:#5a8fa8;
+  --purple:#a78bfa;--blue:#60a5fa;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse 800px 500px at 5% 10%,rgba(240,185,11,0.04) 0%,transparent 70%),
+  radial-gradient(ellipse 600px 400px at 95% 90%,rgba(0,212,170,0.04) 0%,transparent 70%);
+  pointer-events:none;z-index:0;}
+.grid-bg{position:fixed;inset:0;
+  background-image:linear-gradient(rgba(240,185,11,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(240,185,11,0.018) 1px,transparent 1px);
+  background-size:44px 44px;pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:16px 20px;}
+
+/* ── HEADER ── */
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 0 20px;border-bottom:1px solid var(--border);margin-bottom:18px;}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-icon{font-size:2.3rem;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 22px rgba(240,185,11,0.7));}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-8px) rotate(5deg);}}
+.logo h1{font-size:1.2rem;font-weight:800;color:var(--accent);}
+.logo p{font-size:.6rem;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:1px;}
+.hdr-badges{display:flex;gap:7px;align-items:center;}
+.hbadge{font-size:.58rem;padding:3px 9px;border-radius:4px;font-family:'Space Mono',monospace;}
+.hb-gold{background:rgba(240,185,11,0.15);border:1px solid rgba(240,185,11,0.4);color:var(--accent);}
+.hb-live{background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);color:var(--accent2);display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;font-size:.65rem;}
+.dot{width:7px;height:7px;background:var(--accent2);border-radius:50%;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:0;margin-bottom:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px;width:fit-content;}
+.tab{padding:8px 20px;border-radius:9px;font-size:.72rem;font-weight:700;cursor:pointer;transition:all .2s;color:var(--muted);font-family:'Syne',sans-serif;}
+.tab.active{background:var(--card);color:var(--text);border:1px solid var(--border);}
+.tab:hover:not(.active){color:var(--text);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ── PRICES ── */
+.prices-bar{display:flex;gap:7px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.prices-bar::-webkit-scrollbar{display:none;}
+.price-chip{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 12px;white-space:nowrap;flex-shrink:0;min-width:108px;transition:border-color .2s;}
+.price-chip:hover{border-color:rgba(240,185,11,0.4);}
+.psym{font-size:.58rem;color:var(--muted);font-family:'Space Mono',monospace;}
+.pval{font-size:.9rem;font-weight:800;font-family:'Space Mono',monospace;color:var(--text);margin:2px 0;}
+.pchg{font-size:.62rem;font-family:'Space Mono',monospace;}
+.up{color:var(--accent2);}.down{color:var(--danger);}
+
+/* ── SKILLS BAR ── */
+.skills-bar{display:flex;gap:5px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.sk{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 9px;white-space:nowrap;flex-shrink:0;font-size:.58rem;font-family:'Space Mono',monospace;color:var(--muted);transition:all .3s;text-align:center;min-width:82px;}
+.sk .si{font-size:.82rem;display:block;margin-bottom:1px;}
+.sk.active{border-color:var(--accent);background:rgba(240,185,11,0.12);color:var(--accent);}
+.sk.nw{border-color:rgba(167,139,250,0.3);background:rgba(167,139,250,0.04);}
+.sk.nw span{color:var(--purple);}
+.sk.nw.active{border-color:var(--purple);background:rgba(167,139,250,0.14);color:var(--purple);}
+.ntag{font-size:.42rem;background:var(--purple);color:#fff;padding:1px 3px;border-radius:2px;margin-left:2px;vertical-align:middle;}
+
+/* ── MAIN LAYOUT ── */
+.main-grid{display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start;}
+
+/* ── WHALE ALERT FEED ── */
+.alert-feed{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.whale-alert{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:14px 16px;transition:border-color .3s;animation:slideIn .4s ease;
+  position:relative;overflow:hidden;
+}
+@keyframes slideIn{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
+.whale-alert::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
+.whale-alert.buy::before{background:var(--accent2);}
+.whale-alert.sell::before{background:var(--danger);}
+.whale-alert.buy{border-color:rgba(0,212,170,0.25);}
+.whale-alert.sell{border-color:rgba(255,59,59,0.25);}
+.wa-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.wa-left{display:flex;align-items:center;gap:10px;}
+.wa-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#0a3a5c,#1a6090);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;border:1px solid var(--border);}
+.wa-addr{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--accent2);}
+.wa-time{font-size:.6rem;color:var(--muted);font-family:'Space Mono',monospace;margin-top:2px;}
+.wa-badge{font-size:.65rem;font-family:'Space Mono',monospace;padding:4px 10px;border-radius:6px;font-weight:700;}
+.badge-buy{background:rgba(0,212,170,0.15);color:var(--accent2);border:1px solid rgba(0,212,170,0.3);}
+.badge-sell{background:rgba(255,59,59,0.15);color:var(--danger);border:1px solid rgba(255,59,59,0.3);}
+.wa-info{display:flex;align-items:center;justify-content:space-between;}
+.wa-token{font-size:.8rem;font-weight:700;color:var(--text);}
+.wa-amount{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--accent);}
+.wa-meta{font-size:.62rem;color:var(--muted);font-family:'Space Mono',monospace;margin-top:4px;}
+.wa-actions{display:flex;gap:7px;margin-top:10px;}
+.btn-copy{
+  background:var(--accent);color:#000;border:none;padding:7px 18px;border-radius:8px;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:.72rem;cursor:pointer;
+  transition:all .2s;display:flex;align-items:center;gap:6px;
+}
+.btn-copy:hover{opacity:.85;transform:scale(1.02);}
+.btn-copy:active{transform:scale(.97);}
+.btn-skip{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:8px;font-family:'Space Mono',monospace;font-size:.62rem;cursor:pointer;transition:all .2s;}
+.btn-skip:hover{border-color:var(--danger);color:var(--danger);}
+.wa-progress{margin-top:10px;display:none;}
+.prog-bar-bg{background:var(--surface);border-radius:100px;height:4px;overflow:hidden;}
+.prog-bar-fill{height:100%;background:var(--accent);border-radius:100px;width:0%;transition:width .3s;}
+.prog-text{font-size:.6rem;color:var(--muted);font-family:'Space Mono',monospace;margin-top:4px;}
+.wa-result{margin-top:10px;display:none;font-family:'Space Mono',monospace;font-size:.68rem;line-height:1.6;}
+
+/* ── TERMINAL ── */
+.terminal{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.term-hdr{background:var(--surface);padding:10px 15px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);}
+.tdots{display:flex;gap:5px;}
+.td{width:9px;height:9px;border-radius:50%;}
+.td.r{background:#ff5f57;}.td.y{background:#febc2e;}.td.g{background:#28c840;}
+.ttitle{font-family:'Space Mono',monospace;font-size:.63rem;color:var(--muted);margin-left:3px;}
+.term-body{padding:15px;min-height:320px;max-height:360px;overflow-y:auto;font-family:'Space Mono',monospace;font-size:.73rem;line-height:1.75;}
+.term-body::-webkit-scrollbar{width:3px;}
+.term-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.ln{margin-bottom:1px;}
+.t{color:var(--muted);display:inline-block;min-width:56px;}
+.sys{color:var(--purple);}.step{color:var(--accent);}.ok{color:var(--accent2);}
+.warn{color:var(--accent3);}.err{color:var(--danger);}.ai{color:var(--blue);}
+.info{color:var(--text);}.dim{color:var(--muted);}.thinking{color:var(--blue);font-style:italic;}
+.input-row{border-top:1px solid var(--border);padding:10px 14px;display:flex;gap:7px;align-items:center;}
+.ps{color:var(--accent);font-family:'Space Mono',monospace;}
+#inp{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-family:'Space Mono',monospace;font-size:.72rem;caret-color:var(--accent);}
+#inp::placeholder{color:var(--muted);}
+.btn{background:var(--accent);color:#000;border:none;padding:6px 13px;border-radius:7px;font-family:'Syne',sans-serif;font-weight:700;font-size:.67rem;cursor:pointer;transition:opacity .2s;white-space:nowrap;}
+.btn:hover{opacity:.85;}
+.btn-sm{background:transparent;border:1px solid var(--border);color:var(--muted);padding:5px 9px;border-radius:7px;font-family:'Space Mono',monospace;font-size:.6rem;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ── PNL DASHBOARD ── */
+.pnl-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
+.stat-val{font-size:1.4rem;font-weight:800;font-family:'Space Mono',monospace;color:var(--accent);}
+.stat-val.green{color:var(--accent2);}
+.stat-val.red{color:var(--danger);}
+.stat-label{font-size:.6rem;color:var(--muted);margin-top:4px;}
+.pnl-chart-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;}
+.chart-title{font-size:.68rem;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:12px;letter-spacing:1px;}
+canvas{width:100%!important;display:block;}
+.trade-history{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.th-hdr{background:var(--surface);padding:10px 14px;font-size:.65rem;font-weight:700;letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
+.th-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:8px;padding:10px 14px;border-bottom:1px solid rgba(10,58,92,0.3);font-family:'Space Mono',monospace;font-size:.65rem;align-items:center;}
+.th-row:last-child{border-bottom:none;}
+.th-row:hover{background:rgba(240,185,11,0.03);}
+
+/* ── SIDEBAR ── */
+.sidebar{display:flex;flex-direction:column;gap:12px;}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.phdr{background:var(--surface);padding:8px 12px;font-size:.62rem;font-weight:700;letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:5px;}
+.phdr em{color:var(--accent);font-style:normal;}
+.pbody{padding:10px 12px;}
+.tok-inp{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:7px 10px;color:var(--text);font-family:'Space Mono',monospace;font-size:.65rem;outline:none;margin-bottom:6px;transition:border-color .2s;}
+.tok-inp:focus{border-color:var(--accent);}
+.tok-inp::placeholder{color:var(--muted);}
+.risk-bar-bg{background:var(--surface);border-radius:100px;height:5px;overflow:hidden;border:1px solid var(--border);}
+.risk-fill{height:100%;border-radius:100px;transition:width 1s ease,background .5s;width:0%;background:var(--accent2);}
+.risk-labels{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.55rem;color:var(--muted);margin-top:3px;}
+.mkt-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(10,58,92,0.3);font-family:'Space Mono',monospace;font-size:.63rem;}
+.qcmds{display:flex;flex-direction:column;gap:4px;}
+.qcmd{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 9px;font-size:.62rem;color:var(--text);cursor:pointer;font-family:'Space Mono',monospace;transition:all .15s;line-height:1.4;}
+.qcmd:hover{border-color:var(--accent);color:var(--accent);}
+.qcmd.qn{border-color:rgba(167,139,250,0.25);}
+.qcmd.qn:hover{border-color:var(--purple);color:var(--purple);}
+
+/* ── SQUARE POST ── */
+.sq-post{background:linear-gradient(135deg,#0a1628,#071830);border:1px solid rgba(240,185,11,0.35);border-radius:12px;padding:14px;font-size:.7rem;line-height:1.65;display:none;animation:fadeUp .4s ease;margin-top:12px;}
+.sq-post.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.sq-hdr{font-size:.6rem;color:var(--accent);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:7px;}
+.sq-body{color:var(--text);white-space:pre-wrap;margin-bottom:7px;}
+.sq-tags{color:var(--accent2);font-size:.6rem;}
+
+/* ── NOTIFICATION TOAST ── */
+.toast{position:fixed;top:20px;right:20px;z-index:1000;background:var(--card);border:1px solid rgba(0,212,170,0.4);border-radius:12px;padding:12px 18px;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--accent2);display:none;animation:toastIn .3s ease;box-shadow:0 8px 32px rgba(0,0,0,0.4);}
+.toast.show{display:block;}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+
+@media(max-width:820px){.main-grid{grid-template-columns:1fr;}.sidebar{display:none;}.pnl-stats{grid-template-columns:repeat(2,1fr);}}
+
+/* ── LANG SWITCHER ── */
+.lang-switcher{display:flex;gap:4px;align-items:center;}
+.lang-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 9px;border-radius:6px;font-family:'Space Mono',monospace;font-size:.6rem;cursor:pointer;transition:all .2s;}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent);}
+.lang-btn.active{background:rgba(240,185,11,0.15);border-color:var(--accent);color:var(--accent);}
+
+/* ── FLASH ORDER MULTI-CHAIN ── */
+.flash-wrap{max-width:820px;margin:0 auto;}
+
+/* CHAIN SELECTOR */
+.chain-selector{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.chain-btn{
+  display:flex;align-items:center;gap:7px;padding:9px 14px;
+  border-radius:10px;border:1px solid var(--border);background:var(--card);
+  color:var(--muted);font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;
+  cursor:pointer;transition:all .2s;flex:1;min-width:120px;justify-content:center;
+}
+.chain-btn:hover{border-color:rgba(240,185,11,0.4);color:var(--text);}
+.chain-btn.active{color:#000;font-weight:800;}
+.chain-btn.cex.active{background:var(--accent);border-color:var(--accent);}
+.chain-btn.bsc.active{background:#F0B90B;border-color:#F0B90B;color:#000;}
+.chain-btn.eth.active{background:#627EEA;border-color:#627EEA;color:#fff;}
+.chain-btn.sol.active{background:#9945FF;border-color:#9945FF;color:#fff;}
+.chain-btn.base.active{background:#0052FF;border-color:#0052FF;color:#fff;}
+.chain-btn.pump.active{background:linear-gradient(135deg,#ff6b35,#ff3b3b);border-color:#ff6b35;color:#fff;}
+.chain-icon{font-size:1.1rem;}
+.chain-badge{font-size:.5rem;padding:1px 5px;border-radius:3px;background:rgba(255,255,255,0.2);margin-left:2px;}
+
+/* DEX/CEX tag */
+.dex-tag{font-size:.55rem;padding:2px 7px;border-radius:4px;font-family:'Space Mono',monospace;margin-left:6px;}
+.tag-cex{background:rgba(240,185,11,0.15);color:var(--accent);border:1px solid rgba(240,185,11,0.3);}
+.tag-dex{background:rgba(167,139,250,0.15);color:var(--purple);border:1px solid rgba(167,139,250,0.3);}
+
+/* WALLET CONNECT (DEX only) */
+.wallet-bar{
+  display:none;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.25);
+  border-radius:10px;padding:10px 14px;margin-bottom:14px;
+  align-items:center;justify-content:space-between;
+}
+.wallet-bar.show{display:flex;}
+.wallet-info{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);}
+.wallet-addr{color:var(--purple);font-size:.68rem;}
+.btn-wallet{background:var(--purple);color:#fff;border:none;padding:7px 14px;border-radius:7px;font-family:'Syne',sans-serif;font-weight:700;font-size:.68rem;cursor:pointer;transition:opacity .2s;}
+.btn-wallet:hover{opacity:.85;}
+.btn-wallet.connected{background:rgba(0,212,170,0.2);color:var(--accent2);border:1px solid rgba(0,212,170,0.3);}
+
+/* DEX ROUTE */
+.dex-route{
+  display:none;background:var(--surface);border:1px solid var(--border);
+  border-radius:9px;padding:10px 14px;margin-bottom:14px;
+  font-family:'Space Mono',monospace;font-size:.65rem;
+}
+.dex-route.show{display:block;}
+.route-row{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
+.route-step{background:var(--card);border:1px solid var(--border);padding:3px 8px;border-radius:5px;color:var(--text);font-size:.6rem;}
+.route-arrow{color:var(--muted);}
+.route-info{display:flex;gap:14px;margin-top:6px;}
+.route-stat{color:var(--muted);}
+.route-stat span{color:var(--accent2);}
+
+/* PUMP.FUN SPECIAL */
+.pump-panel{display:none;background:linear-gradient(135deg,rgba(255,107,53,0.08),rgba(255,59,59,0.05));border:1px solid rgba(255,107,53,0.3);border-radius:10px;padding:14px;margin-bottom:14px;}
+.pump-panel.show{display:block;}
+.pump-title{font-size:.72rem;font-weight:700;color:var(--accent3);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.pump-search{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 12px;color:var(--text);font-family:'Space Mono',monospace;font-size:.7rem;outline:none;margin-bottom:10px;transition:border-color .2s;}
+.pump-search:focus{border-color:var(--accent3);}
+.pump-tokens{display:flex;flex-direction:column;gap:6px;}
+.pump-token{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;cursor:pointer;transition:all .2s;}
+.pump-token:hover{border-color:var(--accent3);}
+.pump-token.selected{border-color:var(--accent3);background:rgba(255,107,53,0.08);}
+.pump-tok-info{display:flex;align-items:center;gap:8px;}
+.pump-tok-icon{font-size:1.2rem;}
+.pump-tok-name{font-weight:700;font-size:.72rem;color:var(--text);}
+.pump-tok-addr{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--muted);}
+.pump-tok-stats{text-align:right;}
+.pump-tok-price{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--text);}
+.pump-tok-chg{font-size:.6rem;}
+.pump-bonding{font-size:.6rem;color:var(--muted);font-family:'Space Mono',monospace;margin-top:2px;}
+.pump-bonding span{color:var(--accent3);}
+
+.flash-mode-toggle{display:flex;gap:8px;margin-bottom:14px;}
+.mode-btn{flex:1;padding:11px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;cursor:pointer;transition:all .2s;text-align:center;}
+.mode-btn:hover{border-color:var(--accent);color:var(--accent);}
+.mode-btn.active.buy-mode{border-color:var(--accent2);background:rgba(0,212,170,0.1);color:var(--accent2);}
+.mode-btn.active.sell-mode{border-color:var(--danger);background:rgba(255,59,59,0.1);color:var(--danger);}
+
+.flash-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.flash-card-hdr{background:var(--surface);padding:11px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.flash-card-title{font-size:.68rem;font-weight:700;letter-spacing:1px;color:var(--muted);}
+.flash-card-title em{color:var(--accent);font-style:normal;}
+.flash-body{padding:16px;}
+.pair-selector{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.pair-btn{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);cursor:pointer;transition:all .2s;}
+.pair-btn:hover{border-color:var(--accent);color:var(--accent);}
+.pair-btn.active{border-color:var(--accent);background:rgba(240,185,11,0.12);color:var(--accent);}
+.price-display{display:flex;align-items:baseline;gap:8px;margin-bottom:14px;padding:12px;background:var(--surface);border-radius:9px;border:1px solid var(--border);}
+.price-big{font-size:1.8rem;font-weight:800;font-family:'Space Mono',monospace;color:var(--text);}
+.price-change{font-size:.78rem;font-family:'Space Mono',monospace;}
+.amount-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.amount-group label{font-size:.6rem;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.5px;display:block;margin-bottom:4px;}
+.amount-inp{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:9px 11px;color:var(--text);font-family:'Space Mono',monospace;font-size:.8rem;outline:none;transition:border-color .2s;}
+.amount-inp:focus{border-color:var(--accent);}
+.pct-btns{display:flex;gap:5px;margin-bottom:12px;}
+.pct-btn{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px;font-family:'Space Mono',monospace;font-size:.63rem;color:var(--muted);cursor:pointer;text-align:center;transition:all .2s;}
+.pct-btn:hover{border-color:var(--accent);color:var(--accent);}
+.slippage-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding:9px 12px;background:var(--surface);border-radius:7px;border:1px solid var(--border);}
+.slippage-label{font-size:.62rem;color:var(--muted);font-family:'Space Mono',monospace;}
+.slippage-btns{display:flex;gap:5px;}
+.slip-btn{background:transparent;border:1px solid var(--border);border-radius:5px;padding:4px 9px;font-family:'Space Mono',monospace;font-size:.6rem;color:var(--muted);cursor:pointer;transition:all .2s;}
+.slip-btn:hover{border-color:var(--accent);color:var(--accent);}
+.slip-btn.active{border-color:var(--accent);background:rgba(240,185,11,0.1);color:var(--accent);}
+.flash-btn{width:100%;padding:15px;border:none;border-radius:11px;font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;transition:all .2s;letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.flash-btn.buy{background:var(--accent2);color:#000;}
+.flash-btn.buy:hover{opacity:.9;transform:scale(1.01);}
+.flash-btn.sell{background:var(--danger);color:#fff;}
+.flash-btn.sell:hover{opacity:.9;transform:scale(1.01);}
+.flash-btn:active{transform:scale(.98);}
+.flash-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+/* EXECUTION OVERLAY */
+.exec-overlay{position:fixed;inset:0;background:rgba(2,11,20,0.93);z-index:999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.exec-overlay.show{display:flex;}
+.exec-spinner{width:56px;height:56px;border:3px solid var(--border);border-top-color:var(--accent2);border-radius:50%;animation:spin .5s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.exec-title{font-size:1.1rem;font-weight:800;font-family:'Space Mono',monospace;color:var(--accent2);}
+.exec-steps{display:flex;flex-direction:column;gap:5px;min-width:300px;}
+.exec-step{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted);display:flex;align-items:center;gap:7px;}
+.exec-step.done{color:var(--accent2);}
+.exec-step.active-step{color:var(--accent);}
+.exec-time{font-size:2.2rem;font-weight:800;font-family:'Space Mono',monospace;color:var(--accent);}
+.exec-result{background:var(--card);border-radius:14px;padding:20px 26px;min-width:320px;border:1px solid var(--border);text-align:center;}
+.exec-result .res-icon{font-size:2.2rem;margin-bottom:7px;}
+.exec-result .res-title{font-size:.95rem;font-weight:800;margin-bottom:12px;}
+.exec-result .res-row{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.68rem;padding:5px 0;border-bottom:1px solid rgba(10,58,92,0.4);}
+.exec-result .res-row:last-of-type{border-bottom:none;}
+.exec-result .res-label{color:var(--muted);}
+.exec-result .res-val{color:var(--text);font-weight:700;}
+.exec-close{background:var(--accent);color:#000;border:none;padding:9px 26px;border-radius:7px;font-family:'Syne',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer;margin-top:12px;transition:opacity .2s;}
+.exec-close:hover{opacity:.85;}
+
+/* ORDER BOOK MINI */
+/* ORDER BOOK MINI */
+.orderbook{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.ob-side{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;}
+.ob-title{font-size:.58rem;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:6px;letter-spacing:.5px;}
+.ob-row{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.62rem;padding:2px 0;}
+.ob-price-ask{color:var(--danger);}
+.ob-price-bid{color:var(--accent2);}
+.ob-qty{color:var(--muted);}
+
+/* RECENT ORDERS */
+.recent-orders{margin-top:6px;}
+.ro-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;padding:7px 0;border-bottom:1px solid rgba(10,58,92,0.3);font-family:'Space Mono',monospace;font-size:.63rem;align-items:center;}
+.ro-row:last-child{border-bottom:none;}
+
+/* ── TP/SL PANEL ── */
+.tpsl-panel{
+  background:rgba(4,24,37,0.8);border:1px solid var(--border);
+  border-radius:10px;padding:12px 14px;margin:10px 0 0;
+}
+.tpsl-row{display:grid;grid-template-columns:1fr 1px 1fr;gap:12px;align-items:start;margin-bottom:10px;}
+.tpsl-divider{background:var(--border);height:100%;min-height:60px;}
+.tpsl-group{}
+.tpsl-label{font-size:.62rem;font-weight:700;letter-spacing:.5px;margin-bottom:6px;font-family:'Space Mono',monospace;}
+.tpsl-group:first-child .tpsl-label{color:var(--accent2);}
+.tpsl-group:last-child .tpsl-label{color:var(--danger);}
+.tpsl-inp-wrap{display:flex;align-items:center;gap:5px;margin-bottom:6px;}
+.tpsl-inp{
+  width:80px;background:var(--surface);border-radius:7px;padding:7px 10px;
+  font-family:'Space Mono',monospace;font-size:.82rem;font-weight:700;
+  outline:none;color:var(--text);-moz-appearance:textfield;
+}
+.tpsl-inp::-webkit-outer-spin-button,.tpsl-inp::-webkit-inner-spin-button{-webkit-appearance:none;}
+.tp-inp{border:1px solid rgba(0,212,170,0.4);}
+.tp-inp:focus{border-color:var(--accent2);}
+.sl-inp{border:1px solid rgba(255,59,59,0.4);}
+.sl-inp:focus{border-color:var(--danger);}
+.tpsl-unit{font-size:.75rem;color:var(--muted);font-family:'Space Mono',monospace;}
+.tpsl-presets{display:flex;gap:4px;flex-wrap:wrap;}
+.tpsl-preset{
+  font-size:.58rem;padding:3px 7px;border-radius:5px;cursor:pointer;
+  background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);
+  color:var(--accent2);font-family:'Space Mono',monospace;transition:all .15s;
+}
+.tpsl-preset:hover{background:rgba(0,212,170,0.2);border-color:var(--accent2);}
+.tpsl-preset.sl{
+  background:rgba(255,59,59,0.08);border-color:rgba(255,59,59,0.2);color:var(--danger);
+}
+.tpsl-preset.sl:hover{background:rgba(255,59,59,0.2);border-color:var(--danger);}
+.tpsl-info{
+  font-size:.63rem;font-family:'Space Mono',monospace;
+  padding:7px 10px;background:rgba(240,185,11,0.05);
+  border:1px solid rgba(240,185,11,0.15);border-radius:7px;
+  display:flex;align-items:center;flex-wrap:wrap;gap:4px;
+}
+/* Live monitor badge */
+.tpsl-monitor{
+  display:none;margin-top:8px;padding:8px 12px;
+  background:rgba(4,24,37,0.9);border:1px solid var(--border);border-radius:8px;
+  font-family:'Space Mono',monospace;font-size:.65rem;
+}
+.tpsl-monitor.show{display:block;}
+.monitor-bar-bg{background:var(--surface);border-radius:100px;height:6px;margin:6px 0;position:relative;border:1px solid var(--border);}
+.monitor-bar-fill{height:100%;border-radius:100px;transition:width .5s ease,background .3s;position:absolute;left:50%;transform:translateX(-50%);}
+.monitor-center{position:absolute;left:50%;top:-1px;width:2px;height:8px;background:var(--accent);border-radius:1px;}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="toast" id="toast"></div>
+
+<div class="wrap">
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🦞</div>
+    <div>
+      <h1>WHALE GUARDIAN COPIER v7</h1>
+      <p data-i18n="logo_sub">AUTO ALERT · FLASH ORDER 0.1s · PNL DASHBOARD · 11 SKILLS</p>
+    </div>
+  </div>
+  <div class="hdr-badges">
+    <span class="hbadge hb-gold">11 SKILLS</span>
+    <span class="hbadge hb-gold">OPENCLAW 2026</span>
+    <div class="lang-switcher"><button class="lang-btn" onclick="setLang('vi')">🇻🇳 VI</button><button class="lang-btn" onclick="setLang('en')">🇺🇸 EN</button><button class="lang-btn" onclick="setLang('zh')">🇨🇳 ZH</button></div><div class="hbadge hb-live"><div class="dot"></div><span id="liveLabel">AUTO SCANNING</span></div>
+  </div>
+</header>
+
+<!-- PRICES -->
+<div class="prices-bar" id="pricesBar">
+  <div class="price-chip"><div class="psym">CONNECTING...</div><div class="pval">---</div></div>
+</div>
+
+<!-- SKILLS BAR -->
+<div class="skills-bar">
+  <div class="sk" id="sk1"><span class="si">📊</span><span>Spot</span></div>
+  <div class="sk" id="sk2"><span class="si">🔍</span><span>Address</span></div>
+  <div class="sk" id="sk3"><span class="si">🪙</span><span>Token Info</span></div>
+  <div class="sk" id="sk4"><span class="si">🏆</span><span>Market Rank</span></div>
+  <div class="sk" id="sk5"><span class="si">🚀</span><span>Meme Rush</span></div>
+  <div class="sk" id="sk6"><span class="si">📡</span><span>Signal</span></div>
+  <div class="sk" id="sk7"><span class="si">🛡️</span><span>Audit</span></div>
+  <div class="sk" id="sk8"><span class="si">📢</span><span>Square</span></div>
+  <div class="sk nw" id="sk9"><span class="si">🌐</span><span>Alpha<span class="ntag">NEW</span></span></div>
+  <div class="sk nw" id="sk10"><span class="si">📈</span><span>Futures<span class="ntag">NEW</span></span></div>
+  <div class="sk nw" id="sk11"><span class="si">💳</span><span>Margin<span class="ntag">NEW</span></span></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('alerts')" data-i18n="tab_alerts">🐋 Whale Alerts</div>
+  <div class="tab" onclick="switchTab('terminal')" data-i18n="tab_terminal">⌨️ AI Terminal</div>
+  <div class="tab" onclick="switchTab('dashboard')" data-i18n="tab_dashboard">📊 PNL Dashboard</div>
+  <div class="tab" onclick="switchTab('flash')">⚡ Flash Order</div>
+</div>
+
+<!-- TAB: WHALE ALERTS -->
+<div class="tab-panel active" id="tab-alerts">
+  <div class="main-grid">
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div style="font-size:.68rem;color:var(--muted);font-family:'Space Mono',monospace;">
+          <span style="color:var(--accent2);">● </span><span data-i18n="alert_scanning">AUTO SCANNING · Phát hiện giao dịch lớn > $500K</span>
+        </div>
+        <button class="btn-sm" onclick="triggerNewAlert()" data-i18n="btn_add_alert">+ Thêm Alert</button>
+      </div>
+      <div class="alert-feed" id="alertFeed"></div>
+      <div class="sq-post" id="sqPost">
+        <div class="sq-hdr">📢 BINANCE SQUARE AUTO-POST · WHALE GUARDIAN COPIER v4</div>
+        <div class="sq-body" id="sqBody"></div>
+        <div class="sq-tags" id="sqTags"></div>
+      </div>
+    </div>
+    <div class="sidebar" id="sidebarAlerts">
+      <!-- AUDIT -->
+      <div class="panel">
+        <div class="phdr"><em>🛡️</em> QUICK AUDIT</div>
+        <div class="pbody">
+          <input class="tok-inp" id="tokenAddr" placeholder="Token: PEPE, BRETT, 0x..."/>
+          <button class="btn" style="width:100%;margin-bottom:8px;" onclick="runAudit()">🛡️ AUDIT TOKEN</button>
+          <div class="risk-bar-bg"><div class="risk-fill" id="riskFill"></div></div>
+          <div class="risk-labels"><span>SAFE</span><span id="riskScore" style="color:var(--text);">—/100</span><span>DANGER</span></div>
+          <div style="font-size:.63rem;margin-top:6px;" id="riskVerdict">Chưa audit</div>
+        </div>
+      </div>
+      <!-- LIVE MARKET -->
+      <div class="panel">
+        <div class="phdr"><em>📊</em> LIVE MARKET</div>
+        <div class="pbody" id="marketPanel"><div style="font-size:.63rem;color:var(--muted);">Connecting...</div></div>
+      </div>
+      <!-- QUICK CMDS -->
+      <div class="panel">
+        <div class="phdr"><em>⚡</em> QUICK ACTIONS</div>
+        <div class="pbody">
+          <div class="qcmds">
+            <div class="qcmd" onclick="triggerNewAlert()">🐋 Simulate whale alert mới</div>
+            <div class="qcmd" onclick="switchTab('terminal');ask('Whale vừa mua PEPE $2.4M. Phân tích đủ 5 bước và quyết định copy trade 0.5%')">⚡ Phân tích whale thủ công</div>
+            <div class="qcmd qn" onclick="switchTab('terminal');ask('Dùng Binance Alpha Skill #9: top 5 on-chain trending tokens BSC/Base hôm nay')">🌐 [Alpha] Trending on-chain</div>
+            <div class="qcmd qn" onclick="switchTab('terminal');ask('Dùng Futures Skill #10: BTC funding rate, open interest, long/short ratio, chiến lược tối ưu')">📈 [Futures] BTC analysis</div>
+            <div class="qcmd qn" onclick="switchTab('terminal');ask('Dùng Margin Skill #11: tư vấn margin 3x ETH, liquidation price, collateral ratio')">💳 [Margin] ETH 3x strategy</div>
+            <div class="qcmd" onclick="switchTab('dashboard')">📊 Xem PNL Dashboard</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: AI TERMINAL -->
+<div class="tab-panel" id="tab-terminal">
+  <div class="main-grid">
+    <div>
+      <div class="terminal">
+        <div class="term-hdr">
+          <div class="tdots"><div class="td r"></div><div class="td y"></div><div class="td g"></div></div>
+          <div class="ttitle">whale-guardian-v4 — claude ai · 11 skills · live</div>
+        </div>
+        <div class="term-body" id="tb">
+          <div class="ln"><span class="t">00:00:00</span><span class="sys">🦞 Whale Guardian Copier v4 — AI Terminal</span></div>
+          <div class="ln"><span class="t">00:00:01</span><span class="ok">✅ Claude AI + 11 Binance Skills ONLINE</span></div>
+          <div class="ln"><span class="t">00:00:01</span><span class="ai">🆕 NEW: Auto Whale Alert · One-Click Copy · PNL Dashboard</span></div>
+          <div class="ln"><span class="t">00:00:02</span><span class="dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span></div>
+          <div class="ln"><span class="t">00:00:02</span><span class="info">Nhập lệnh bất kỳ hoặc chọn Quick Command →</span></div>
+        </div>
+        <div class="input-row">
+          <span class="ps">›</span>
+          <input id="inp" type="text" id="termPlaceholder" placeholder="Hỏi AI bất kỳ điều gì về crypto..." autocomplete="off"/>
+          <button class="btn-sm" onclick="runAudit()">🛡️</button>
+          <button class="btn" onclick="send()">GỬI ⏎</button>
+        </div>
+      </div>
+      <div class="sq-post" id="sqPost2">
+        <div class="sq-hdr">📢 BINANCE SQUARE AUTO-POST</div>
+        <div class="sq-body" id="sqBody2"></div>
+        <div class="sq-tags" id="sqTags2"></div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="panel">
+        <div class="phdr"><em>⌨️</em> QUICK COMMANDS</div>
+        <div class="pbody">
+          <div class="qcmds">
+            <div class="qcmd" onclick="ask('Whale 0x7a250d vừa mua PEPE $2.4M. Chạy đủ 5 bước: Address Info + Token Info + Contract Audit + Trading Signal + quyết định copy 0.5%')">🐋 Whale mua PEPE → Copy?</div>
+            <div class="qcmd" onclick="ask('Meme Rush + Market Rankings: top 3 meme coin hot nhất hôm nay, phân tích narrative và cơ hội entry')">🚀 Meme Rush top coins</div>
+            <div class="qcmd" onclick="ask('Trading Signal + Spot: BTC ETH BNB tín hiệu mua/bán, entry, stop loss, take profit cụ thể với giá thật')">📡 Signal BTC/ETH/BNB</div>
+            <div class="qcmd qn" onclick="ask('Binance Alpha Skill #9: top 5 on-chain trending tokens BSC Base Solana hôm nay với % tăng và volume')">🌐 Alpha on-chain trending</div>
+            <div class="qcmd qn" onclick="ask('USD-M Futures Skill #10: BTC funding rate, OI, long/short ratio. Chiến lược long/short tối ưu với stop loss')">📈 Futures BTC strategy</div>
+            <div class="qcmd qn" onclick="ask('Margin Trading Skill #11: chiến lược 3x ETH. Tính liquidation price, collateral cần thiết, rủi ro')">💳 Margin 3x ETH</div>
+            <div class="qcmd" onclick="ask('Viết bài Binance Square viral cực mạnh về Whale Guardian Copier v4 cho cuộc thi OpenClaw 2026. Hook mạnh + số liệu + CTA')">📢 Square viral post</div>
+            <div class="qcmd" onclick="ask('Báo cáo tổng danh mục: PNL spot+margin+futures, win rate, top trade, rủi ro hiện tại, khuyến nghị')">📋 Báo cáo danh mục</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="phdr"><em>🛡️</em> CONTRACT AUDIT</div>
+        <div class="pbody">
+          <input class="tok-inp" id="tokenAddr2" placeholder="PEPE, BRETT, 0x..."/>
+          <button class="btn" style="width:100%;" onclick="runAudit2()">AUDIT TOKEN</button>
+          <div style="margin-top:8px;" class="risk-bar-bg"><div class="risk-fill" id="riskFill2"></div></div>
+          <div class="risk-labels"><span>SAFE</span><span id="riskScore2" style="color:var(--text);">—/100</span><span>DANGER</span></div>
+          <div style="font-size:.62rem;margin-top:5px;" id="riskVerdict2">Chưa audit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: PNL DASHBOARD -->
+<div class="tab-panel" id="tab-dashboard">
+  <div class="pnl-stats" id="pnlStats"></div>
+  <div class="pnl-chart-wrap">
+    <div class="chart-title" data-i18n="chart_title">📈 ĐƯỜNG TĂNG TRƯỞNG DANH MỤC (30 NGÀY)</div>
+    <canvas id="pnlChart" height="160"></canvas>
+  </div>
+  <div class="trade-history">
+    <div class="th-hdr">
+      <span data-i18n="trade_history">📋 LỊCH SỬ LỆNH COPY TRADE</span>
+      <span style="color:var(--accent2);" id="winRateLabel">Win Rate: —</span>
+    </div>
+    <div id="tradeList"></div>
+  </div>
+</div>
+
+
+<!-- EXECUTION OVERLAY -->
+<div class="exec-overlay" id="execOverlay">
+  <div id="execSpinWrap" style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+    <div class="exec-spinner"></div>
+    <div class="exec-title" id="execTitle">⚡ FLASH ORDER EXECUTING...</div>
+    <div class="exec-time" id="execTimer">0.000s</div>
+    <div class="exec-steps" id="execSteps"></div>
+  </div>
+  <div class="exec-result" id="execResult" style="display:none;"></div>
+</div>
+
+<!-- TAB: FLASH ORDER MULTI-CHAIN -->
+<div class="tab-panel" id="tab-flash">
+  <div class="flash-wrap">
+
+    <!-- CHAIN SELECTOR -->
+    <div class="chain-selector">
+      <button class="chain-btn cex active" onclick="selectChain('cex')" id="chain-cex">
+        <span class="chain-icon">🏦</span> Binance CEX
+        <span class="chain-badge">SPOT</span>
+      </button>
+      <button class="chain-btn bsc" onclick="selectChain('bsc')" id="chain-bsc">
+        <span class="chain-icon">🟡</span> BSC
+        <span class="chain-badge">DEX</span>
+      </button>
+      <button class="chain-btn eth" onclick="selectChain('eth')" id="chain-eth">
+        <span class="chain-icon">💎</span> Ethereum
+        <span class="chain-badge">DEX</span>
+      </button>
+      <button class="chain-btn sol" onclick="selectChain('sol')" id="chain-sol">
+        <span class="chain-icon">🟣</span> Solana
+        <span class="chain-badge">DEX</span>
+      </button>
+      <button class="chain-btn base" onclick="selectChain('base')" id="chain-base">
+        <span class="chain-icon">🔵</span> Base
+        <span class="chain-badge">DEX</span>
+      </button>
+      <button class="chain-btn pump" onclick="selectChain('pump')" id="chain-pump">
+        <span class="chain-icon">🔥</span> Pump.fun
+        <span class="chain-badge">MEME</span>
+      </button>
+    </div>
+
+    <!-- WALLET BAR (DEX only) -->
+    <div class="wallet-bar" id="walletBar">
+      <div class="wallet-info">
+        <div style="margin-bottom:2px;">👛 <span id="walletChainName">BSC</span> Wallet</div>
+        <div class="wallet-addr" id="walletAddr">Chưa kết nối</div>
+      </div>
+      <button class="btn-wallet" id="walletBtn" onclick="connectWallet()">Kết nối Ví</button>
+    </div>
+
+    <!-- PUMP.FUN SPECIAL PANEL -->
+    <div class="pump-panel" id="pumpPanel">
+      <div class="pump-title">🔥 PUMP.FUN – MEME COIN LAUNCHER
+        <span style="font-size:.58rem;color:var(--muted);font-weight:400;">Solana · Demo Mode</span>
+      </div>
+      <input class="pump-search" id="pumpSearch" placeholder="🔍 Tìm token: PEPE, BONK, WIF hoặc địa chỉ CA..." oninput="filterPumpTokens()"/>
+      <div class="pump-tokens" id="pumpTokens"></div>
+    </div>
+
+    <!-- MODE TOGGLE -->
+    <div class="flash-mode-toggle">
+      <button class="mode-btn active buy-mode" id="modeBuy" onclick="setMode('buy')">
+        🟢 MUA NHANH (FLASH BUY)
+      </button>
+      <button class="mode-btn sell-mode" id="modeSell" onclick="setMode('sell')">
+        🔴 BÁN NHANH (FLASH SELL)
+      </button>
+    </div>
+
+    <!-- PAIR + PRICE -->
+    <div class="flash-card" id="pairCard">
+      <div class="flash-card-hdr">
+        <div class="flash-card-title"><em>📊</em> CHỌN TOKEN
+          <span class="dex-tag tag-cex" id="dexTypeTag">CEX</span>
+        </div>
+        <div style="font-size:.6rem;color:var(--accent2);font-family:'Space Mono',monospace;" id="priceSourceLabel">● BINANCE LIVE</div>
+      </div>
+      <div class="flash-body">
+        <div class="pair-selector" id="pairSelector"></div>
+        <div class="price-display">
+          <div class="price-big" id="flashPrice">$83,500</div>
+          <div class="price-change up" id="flashChg">▲ +2.10%</div>
+          <div style="margin-left:auto;font-size:.6rem;color:var(--muted);font-family:'Space Mono',monospace;">
+            Bid: <span id="flashBid" style="color:var(--accent2);">—</span>&nbsp;
+            Ask: <span id="flashAsk" style="color:var(--danger);">—</span>
+          </div>
+        </div>
+        <!-- DEX ROUTE -->
+        <div class="dex-route" id="dexRoute">
+          <div style="font-size:.6rem;color:var(--muted);margin-bottom:5px;letter-spacing:.5px;">🔀 ROUTING</div>
+          <div class="route-row" id="routeSteps"></div>
+          <div class="route-info" id="routeInfo"></div>
+        </div>
+        <div class="orderbook" id="orderbook"></div>
+      </div>
+    </div>
+
+    <!-- AMOUNT -->
+    <div class="flash-card">
+      <div class="flash-card-hdr">
+        <div class="flash-card-title"><em>💰</em> NHẬP SỐ LƯỢNG</div>
+        <div style="font-size:.6rem;color:var(--muted);font-family:'Space Mono',monospace;">
+          Balance: <span id="balanceLabel" style="color:var(--accent);">10,000 USDT</span>
+        </div>
+      </div>
+      <div class="flash-body">
+        <div class="amount-row">
+          <div class="amount-group">
+            <label id="usdtLabel">SỐ LƯỢNG (USDT)</label>
+            <input class="amount-inp" id="amountUsdt" type="number" value="100" min="1" oninput="syncAmount('usdt')"/>
+          </div>
+          <div class="amount-group">
+            <label id="coinLabel">SỐ LƯỢNG (TOKEN)</label>
+            <input class="amount-inp" id="amountCoin" type="number" step="any" oninput="syncAmount('coin')"/>
+          </div>
+        </div>
+        <div class="pct-btns">
+          <div class="pct-btn" onclick="setPct(10)">10%</div>
+          <div class="pct-btn" onclick="setPct(25)">25%</div>
+          <div class="pct-btn" onclick="setPct(50)">50%</div>
+          <div class="pct-btn" onclick="setPct(75)">75%</div>
+          <div class="pct-btn" onclick="setPct(100)">MAX</div>
+        </div>
+        <div class="slippage-row">
+          <div class="slippage-label" id="slippageLabel">⚡ Slippage tối đa</div>
+          <div class="slippage-btns">
+            <button class="slip-btn active" id="slip01" onclick="setSlip(0.1)">0.1%</button>
+            <button class="slip-btn" id="slip05" onclick="setSlip(0.5)">0.5%</button>
+            <button class="slip-btn" id="slip1" onclick="setSlip(1.0)">1.0%</button>
+            <button class="slip-btn" id="slip3" onclick="setSlip(3.0)">3.0%</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLASH BUTTON -->
+    <button class="flash-btn buy" id="flashBtn" onclick="executeFlashOrder()">
+      ⚡ FLASH BUY – THỰC HIỆN NGAY (0.1s)
+    </button>
+
+    <!-- RECENT ORDERS -->
+    <div class="flash-card" style="margin-top:14px;">
+      <div class="flash-card-hdr">
+        <div class="flash-card-title"><em>📋</em> LỆNH GẦN ĐÂY</div>
+        <div id="demoModeLabel" style="font-size:.6rem;color:var(--muted);font-family:'Space Mono',monospace;">DEMO MODE</div>
+      </div>
+      <div class="flash-body">
+        <div style="display:grid;grid-template-columns:1.2fr 0.6fr 0.6fr 1fr 0.8fr;gap:6px;margin-bottom:6px;font-size:.57rem;color:var(--muted);font-family:'Space Mono',monospace;padding-bottom:6px;border-bottom:1px solid var(--border);">
+          <span>Token</span><span>Chain</span><span>Loại</span><span>Giá</span><span>Thời gian</span>
+        </div>
+        <div id="recentOrders">
+          <div style="font-size:.63rem;color:var(--muted);font-family:'Space Mono',monospace;text-align:center;padding:12px;">Chưa có lệnh. Chọn chain và bấm Flash Order!</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+
+// ══════════════════════════════════════════════════
+// i18n – MULTI-LANGUAGE SYSTEM
+// ══════════════════════════════════════════════════
+const TRANSLATIONS = {
+  vi: {
+    tab_alerts:      '🐋 Whale Alerts',
+    tab_terminal:    '⌨️ AI Terminal',
+    tab_dashboard:   '📊 PNL Dashboard',
+    logo_sub:        'AUTO ALERT · ONE-CLICK COPY · PNL DASHBOARD · 11 SKILLS',
+    live_label:      'AUTO SCANNING',
+    alert_scanning:  'AUTO SCANNING · Phát hiện giao dịch lớn > $500K',
+    btn_add_alert:   '+ Thêm Alert',
+    chart_title:     '📈 ĐƯỜNG TĂNG TRƯỞNG DANH MỤC (30 NGÀY)',
+    // Alert card
+    win_rate:        'Win rate',
+    just_now:        'vừa xong',
+    min_ago:         'phút trước',
+    skills_used:     'Token Info · Address Info · Market Rank · Meme Rush',
+    btn_copy:        '⚡ ONE-CLICK COPY (0.5%)',
+    btn_skip:        '✕ Bỏ qua',
+    analyzing:       'Đang phân tích...',
+    // Copy result
+    copy_success:    '✅ COPY TRADE THỰC HIỆN (MÔ PHỎNG)',
+    risk_score:      '🛡️ Điểm rủi ro',
+    safe:            'AN TOÀN',
+    size_label:      '💰 Size',
+    pnl_label:       '📈 PNL mô phỏng',
+    time_label:      '⏱ Thời gian',
+    reject:          '🚨 TỪ CHỐI – ĐIỂM RỦI RO CAO',
+    rejected_msg:    '❌ Phát hiện rủi ro cao – Không copy trade',
+    protected:       '✅ Tài khoản được BẢO VỆ',
+    minutes:         'phút',
+    // Dashboard
+    total_pnl:       '💰 TỔNG PNL (USD)',
+    win_rate_label:  '🎯 WIN RATE',
+    trades_copied:   '⚡ LỆNH ĐÃ COPY',
+    best_trade:      '🏆 BEST TRADE',
+    trade_history:   '📋 LỊCH SỬ LỆNH COPY TRADE',
+    // Terminal
+    term_placeholder:'Hỏi AI bất kỳ điều gì về crypto...',
+    term_ready:      'Nhập lệnh bất kỳ hoặc chọn Quick Command →',
+    // Toast
+    toast_copy_ok:   'Copy trade thành công! PNL',
+    toast_alert:     'Whale Alert!',
+    // Audit
+    audit_label:     'Chưa audit',
+    // Quick cmds
+    qcmd1: '🐋 Whale mua PEPE → Copy?',
+    qcmd2: '🚀 Meme Rush top coins',
+    qcmd3: '📡 Signal BTC/ETH/BNB',
+    qcmd4: '🌐 Alpha on-chain trending',
+    qcmd5: '📈 Futures BTC strategy',
+    qcmd6: '💳 Margin 3x ETH',
+    qcmd7: '📢 Square viral post',
+    qcmd8: '📋 Báo cáo danh mục',
+  },
+  en: {
+    tab_alerts:      '🐋 Whale Alerts',
+    tab_terminal:    '⌨️ AI Terminal',
+    tab_dashboard:   '📊 PNL Dashboard',
+    logo_sub:        'AUTO ALERT · ONE-CLICK COPY · PNL DASHBOARD · 11 SKILLS',
+    live_label:      'AUTO SCANNING',
+    alert_scanning:  'AUTO SCANNING · Detecting large transactions > $500K',
+    btn_add_alert:   '+ Add Alert',
+    chart_title:     '📈 PORTFOLIO GROWTH CURVE (30 DAYS)',
+    win_rate:        'Win rate',
+    just_now:        'just now',
+    min_ago:         'min ago',
+    skills_used:     'Token Info · Address Info · Market Rank · Meme Rush',
+    btn_copy:        '⚡ ONE-CLICK COPY (0.5%)',
+    btn_skip:        '✕ Skip',
+    analyzing:       'Analyzing...',
+    copy_success:    '✅ COPY TRADE EXECUTED (SIMULATION)',
+    risk_score:      '🛡️ Risk score',
+    safe:            'SAFE',
+    size_label:      '💰 Size',
+    pnl_label:       '📈 Simulated PNL',
+    time_label:      '⏱ Time',
+    reject:          '🚨 REJECTED – HIGH RISK SCORE',
+    rejected_msg:    '❌ High risk detected – Trade blocked',
+    protected:       '✅ Account PROTECTED',
+    minutes:         'min',
+    total_pnl:       '💰 TOTAL PNL (USD)',
+    win_rate_label:  '🎯 WIN RATE',
+    trades_copied:   '⚡ TRADES COPIED',
+    best_trade:      '🏆 BEST TRADE',
+    trade_history:   '📋 COPY TRADE HISTORY',
+    term_placeholder:'Ask AI anything about crypto...',
+    term_ready:      'Type a command or choose Quick Command →',
+    toast_copy_ok:   'Copy trade successful! PNL',
+    toast_alert:     'Whale Alert!',
+    audit_label:     'Not audited yet',
+    qcmd1: '🐋 Whale bought PEPE → Copy?',
+    qcmd2: '🚀 Meme Rush top coins',
+    qcmd3: '📡 Signal BTC/ETH/BNB',
+    qcmd4: '🌐 Alpha on-chain trending',
+    qcmd5: '📈 Futures BTC strategy',
+    qcmd6: '💳 Margin 3x ETH',
+    qcmd7: '📢 Square viral post',
+    qcmd8: '📋 Portfolio report',
+  },
+  zh: {
+    tab_alerts:      '🐋 鲸鱼警报',
+    tab_terminal:    '⌨️ AI 终端',
+    tab_dashboard:   '📊 PNL 仪表板',
+    logo_sub:        '自动警报 · 一键跟单 · PNL仪表板 · 11技能',
+    live_label:      '自动扫描中',
+    alert_scanning:  '自动扫描 · 检测大额交易 > $500K',
+    btn_add_alert:   '+ 添加警报',
+    chart_title:     '📈 投资组合增长曲线（30天）',
+    win_rate:        '胜率',
+    just_now:        '刚刚',
+    min_ago:         '分钟前',
+    skills_used:     '代币信息 · 地址信息 · 市场排名 · Meme追踪',
+    btn_copy:        '⚡ 一键跟单 (0.5%)',
+    btn_skip:        '✕ 跳过',
+    analyzing:       '正在分析...',
+    copy_success:    '✅ 跟单已执行（模拟）',
+    risk_score:      '🛡️ 风险评分',
+    safe:            '安全',
+    size_label:      '💰 仓位',
+    pnl_label:       '📈 模拟收益',
+    time_label:      '⏱ 时间',
+    reject:          '🚨 已拒绝 – 风险评分过高',
+    rejected_msg:    '❌ 检测到高风险 – 拒绝跟单',
+    protected:       '✅ 账户已受到保护',
+    minutes:         '分钟',
+    total_pnl:       '💰 总收益（USD）',
+    win_rate_label:  '🎯 胜率',
+    trades_copied:   '⚡ 已跟单笔数',
+    best_trade:      '🏆 最佳交易',
+    trade_history:   '📋 跟单历史记录',
+    term_placeholder:'向AI询问任何加密货币问题...',
+    term_ready:      '输入命令或选择快捷命令 →',
+    toast_copy_ok:   '跟单成功！收益',
+    toast_alert:     '鲸鱼警报！',
+    audit_label:     '尚未审计',
+    qcmd1: '🐋 鲸鱼买入PEPE → 跟单?',
+    qcmd2: '🚀 Meme Rush热门币',
+    qcmd3: '📡 BTC/ETH/BNB信号',
+    qcmd4: '🌐 Alpha链上趋势',
+    qcmd5: '📈 BTC合约策略',
+    qcmd6: '💳 ETH 3倍杠杆',
+    qcmd7: '📢 Square病毒帖子',
+    qcmd8: '📋 投资组合报告',
+  }
+};
+
+let currentLang = 'vi';
+
+function detectLang() {
+  const browserLang = (navigator.language || navigator.userLanguage || 'vi').toLowerCase();
+  if (browserLang.startsWith('zh')) return 'zh';
+  if (browserLang.startsWith('en')) return 'en';
+  return 'vi';
+}
+
+function t(key) {
+  return TRANSLATIONS[currentLang][key] || TRANSLATIONS['en'][key] || key;
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+
+  // Update active button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase().includes(lang));
+  });
+
+  // Update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (el.tagName === 'INPUT') el.placeholder = t(key);
+    else el.textContent = t(key);
+  });
+
+  // Update live label
+  const ll = document.getElementById('liveLabel');
+  if (ll) ll.textContent = t('live_label');
+
+  // Update terminal placeholder
+  const inp = document.getElementById('inp');
+  if (inp) inp.placeholder = t('term_placeholder');
+  const tp = document.getElementById('termPlaceholder');
+  if (tp) tp.placeholder = t('term_placeholder');
+
+  // Update quick commands
+  const qcmds = document.querySelectorAll('.qcmd[data-qkey]');
+  qcmds.forEach(el => el.textContent = t(el.getAttribute('data-qkey')));
+
+  // Update audit label
+  const av = document.getElementById('riskVerdict');
+  if (av && av.textContent === TRANSLATIONS['vi']['audit_label'] ||
+      av && av.textContent === TRANSLATIONS['en']['audit_label'] ||
+      av && av.textContent === TRANSLATIONS['zh']['audit_label']) {
+    av.textContent = t('audit_label');
+  }
+  const av2 = document.getElementById('riskVerdict2');
+  if (av2) av2.textContent = t('audit_label');
+
+  // Re-render dashboard labels if active
+  if (document.getElementById('tab-dashboard').classList.contains('active')) {
+    renderDashboard();
+  }
+
+  // Update Claude system prompt language
+  updateClaudeLanguage(lang);
+}
+
+function updateClaudeLanguage(lang) {
+  const langMap = { vi: 'tiếng Việt', en: 'English', zh: '中文（简体）' };
+  window._claudeLang = langMap[lang] || 'tiếng Việt';
+}
+
+function initLang() {
+  const detected = detectLang();
+  setLang(detected);
+}
+
+// ══════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════
+let prices = {};
+let ws = null;
+let trades = [];
+let portfolio = 10000; // starting USDT
+
+// ══════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════
+function ts() { return new Date().toTimeString().slice(0,8); }
+function rnd(min,max) { return Math.random()*(max-min)+min; }
+function fmt(p) {
+  const n=parseFloat(p);
+  if(n<0.00001) return n.toExponential(2);
+  if(n<0.001) return n.toFixed(7);
+  if(n<1) return n.toFixed(4);
+  return n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function showToast(msg, duration=3000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+function flash(...ids) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('active');
+    setTimeout(() => el.classList.remove('active'), 2500);
+  });
+}
+
+// ══════════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    const names = ['alerts','terminal','dashboard','flash'];
+    t.classList.toggle('active', names[i]===name);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(name==='dashboard') renderDashboard();
+  if(name==='flash') initFlash();
+}
+
+// ══════════════════════════════════════════════════
+// BINANCE WEBSOCKET
+// ══════════════════════════════════════════════════
+const COINS = [
+  {s:'BTCUSDT',p:83500,c:2.1},{s:'ETHUSDT',p:1920,c:1.8},
+  {s:'BNBUSDT',p:598,c:0.9},{s:'SOLUSDT',p:126,c:3.2},
+  {s:'PEPEUSDT',p:0.0000085,c:5.4},{s:'WIFUSDT',p:0.82,c:-1.3},
+  {s:'DOGEUSDT',p:0.158,c:1.1},{s:'BRETTUSDT',p:0.062,c:8.4},
+];
+COINS.forEach(c => { prices[c.s]={symbol:c.s,lastPrice:c.p,priceChangePercent:c.c}; });
+
+function initPrices() {
+  renderPrices(); renderMarket();
+  connectWS();
+}
+
+function connectWS() {
+  if(ws) ws.close();
+  const streams = COINS.map(c=>c.s.toLowerCase()+'@miniTicker').join('/');
+  ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
+  ws.onopen = () => logTerm('ok','✅ [Binance WebSocket] Giá LIVE thành công! Realtime 🟢');
+  ws.onmessage = e => {
+    try {
+      const t = JSON.parse(e.data).data;
+      if(!t) return;
+      prices[t.s]={symbol:t.s,lastPrice:parseFloat(t.c),priceChangePercent:parseFloat(t.P)};
+      renderPrices(); renderMarket();
+    } catch(_){}
+  };
+  ws.onerror = () => logTerm('warn','⚠️ WebSocket lỗi – dùng giá seed.');
+  ws.onclose = () => setTimeout(connectWS, 5000);
+}
+
+function updateFlashIfActive() {
+  if (document.getElementById('tab-flash')?.classList.contains('active') && flashChain==='cex') {
+    setTimeout(() => { updateFlashPrice(); renderOrderBook(); syncAmount('usdt'); }, 0);
+  }
+}
+
+function renderPrices() {
+  updateFlashIfActive();
+  document.getElementById('pricesBar').innerHTML = Object.values(prices).map(t=>{
+    const chg=parseFloat(t.priceChangePercent),sym=t.symbol.replace('USDT','');
+    return `<div class="price-chip"><div class="psym">${sym}/USDT</div><div class="pval">$${fmt(t.lastPrice)}</div><div class="pchg ${chg>=0?'up':'down'}">${chg>=0?'▲':'▼'} ${Math.abs(chg).toFixed(2)}%</div></div>`;
+  }).join('');
+}
+
+function renderMarket() {
+  const mp=document.getElementById('marketPanel');
+  if(!mp) return;
+  mp.innerHTML = Object.values(prices).map(t=>{
+    const chg=parseFloat(t.priceChangePercent),sym=t.symbol.replace('USDT','');
+    return `<div class="mkt-row"><span style="color:var(--text)">${sym}</span><span style="color:var(--muted)">$${fmt(t.lastPrice)}</span><span class="${chg>=0?'up':'down'}">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════
+// WHALE ALERT FEED (AUTO-GENERATED)
+// ══════════════════════════════════════════════════
+const WHALE_TEMPLATES = [
+  {emoji:'🐋',addr:'0x7a250d...5646',token:'PEPE',action:'buy', amount:'$2.4M', vol:2400000, winRate:'78%'},
+  {emoji:'🦈',addr:'0xd3f939...bb12',token:'BRETT',action:'buy', amount:'$890K', vol:890000, winRate:'71%'},
+  {emoji:'🐬',addr:'0x5c9e1a...f03d',token:'SOL',action:'buy',  amount:'$5.1M', vol:5100000, winRate:'84%'},
+  {emoji:'🦑',addr:'0xb881cc...22a9',token:'BONK',action:'buy', amount:'$320K', vol:320000, winRate:'65%'},
+  {emoji:'🐙',addr:'0xf44012...9a3b',token:'WIF', action:'sell',amount:'$1.2M', vol:1200000, winRate:'69%'},
+  {emoji:'🦀',addr:'0x9d1752...c77e',token:'DOGE',action:'buy', amount:'$780K', vol:780000, winRate:'73%'},
+];
+let alertIndex = 0;
+
+function createWhaleAlert(data, autoTrigger=false) {
+  const isBuy = data.action === 'buy';
+  const id = 'alert-' + Date.now();
+  const timeAgo = autoTrigger ? t('just_now') : `${Math.floor(rnd(1,10))} ${t('min_ago')}`;
+
+  const div = document.createElement('div');
+  div.className = `whale-alert ${isBuy?'buy':'sell'}`;
+  div.id = id;
+  div.innerHTML = `
+    <div class="wa-top">
+      <div class="wa-left">
+        <div class="wa-avatar">${data.emoji}</div>
+        <div>
+          <div class="wa-addr">${data.addr}</div>
+          <div class="wa-time">⏱ ${timeAgo} · Win rate: ${data.winRate}</div>
+        </div>
+      </div>
+      <span class="wa-badge ${isBuy?'badge-buy':'badge-sell'}">${isBuy?'BUY':'SELL'}</span>
+    </div>
+    <div class="wa-info">
+      <div>
+        <div class="wa-token">${isBuy?'🟢':'🔴'} ${data.action.toUpperCase()} <strong>${data.token}</strong></div>
+        <div class="wa-meta">${t('skills_used')}</div>
+      </div>
+      <div class="wa-amount">${data.amount}</div>
+    </div>
+    <!-- TP/SL PANEL -->
+    <div class="tpsl-panel" id="tpsl-${id}">
+      <div class="tpsl-row">
+        <div class="tpsl-group">
+          <div class="tpsl-label">🎯 Take Profit</div>
+          <div class="tpsl-inp-wrap">
+            <input class="tpsl-inp tp-inp" id="tp-${id}" type="number" value="15" min="1" max="500" step="1" oninput="updateTPSLInfo('${id}')"/>
+            <span class="tpsl-unit">%</span>
+          </div>
+          <div class="tpsl-presets">
+            <span class="tpsl-preset" onclick="setTP('${id}',5)">+5%</span>
+            <span class="tpsl-preset" onclick="setTP('${id}',10)">+10%</span>
+            <span class="tpsl-preset" onclick="setTP('${id}',20)">+20%</span>
+            <span class="tpsl-preset" onclick="setTP('${id}',50)">+50%</span>
+          </div>
+        </div>
+        <div class="tpsl-divider"></div>
+        <div class="tpsl-group">
+          <div class="tpsl-label">🛑 Stop Loss</div>
+          <div class="tpsl-inp-wrap">
+            <input class="tpsl-inp sl-inp" id="sl-${id}" type="number" value="5" min="1" max="50" step="1" oninput="updateTPSLInfo('${id}')"/>
+            <span class="tpsl-unit">%</span>
+          </div>
+          <div class="tpsl-presets">
+            <span class="tpsl-preset sl" onclick="setSL('${id}',3)">-3%</span>
+            <span class="tpsl-preset sl" onclick="setSL('${id}',5)">-5%</span>
+            <span class="tpsl-preset sl" onclick="setSL('${id}',10)">-10%</span>
+            <span class="tpsl-preset sl" onclick="setSL('${id}',15)">-15%</span>
+          </div>
+        </div>
+      </div>
+      <div class="tpsl-info" id="tpsl-info-${id}">
+        <span style="color:var(--accent2)">🎯 Chốt lời khi +15%</span>
+        &nbsp;·&nbsp;
+        <span style="color:var(--danger)">🛑 Cắt lỗ khi -5%</span>
+        &nbsp;·&nbsp;
+        <span style="color:var(--muted)">Size: 0.5% danh mục</span>
+      </div>
+      <div class="tpsl-monitor" id="monitor-${id}"></div>
+    </div>
+    <div class="wa-actions">
+      <button class="btn-copy" onclick="oneCopyTrade('${id}','${data.token}','${data.amount}',${data.vol})">
+        ${t('btn_copy')}
+      </button>
+      <button class="btn-skip" onclick="skipAlert('${id}')">${t('btn_skip')}</button>
+    </div>
+    <div class="wa-progress" id="prog-${id}">
+      <div class="prog-bar-bg"><div class="prog-bar-fill" id="progfill-${id}"></div></div>
+      <div class="prog-text" id="progtext-${id}">${t('analyzing')}</div>
+    </div>
+    <div class="wa-result" id="result-${id}"></div>
+  `;
+
+  const feed = document.getElementById('alertFeed');
+  feed.insertBefore(div, feed.firstChild);
+
+  // Keep max 5 alerts
+  while(feed.children.length > 5) feed.removeChild(feed.lastChild);
+
+  if(autoTrigger) showToast(`🐋 ${t("toast_alert")} ${data.emoji} ${data.addr} ${data.token} ${data.amount}`);
+}
+
+function skipAlert(id) {
+  const el = document.getElementById(id);
+  if(el) { el.style.opacity='0.3'; el.style.pointerEvents='none'; }
+}
+
+// ══════════════════════════════════════════════════
+// ONE-CLICK COPY TRADE FLOW
+// ══════════════════════════════════════════════════
+async function oneCopyTrade(alertId, token, amount, vol) {
+  const progDiv = document.getElementById('prog-'+alertId);
+  const progFill = document.getElementById('progfill-'+alertId);
+  const progText = document.getElementById('progtext-'+alertId);
+  const resultDiv = document.getElementById('result-'+alertId);
+  const actionsDiv = document.querySelector('#'+alertId+' .wa-actions');
+
+  // Disable buttons
+  actionsDiv.style.pointerEvents = 'none';
+  actionsDiv.style.opacity = '0.5';
+  progDiv.style.display = 'block';
+
+  flash('sk2','sk3');
+  const steps = [
+    {pct:15, txt:'[Skill #2] Address Info: Đang phân tích ví whale...', delay:400},
+    {pct:30, txt:'[Skill #3] Token Info: Lấy metadata token...', delay:800},
+    {pct:45, txt:'[Skill #4] Market Rankings: Kiểm tra volume & ranking...', delay:600},
+    {pct:60, txt:'[Skill #7] Contract Audit: Quét rug/honeypot...', delay:1000},
+    {pct:75, txt:'[Skill #6] Trading Signal: Tính toán entry point...', delay:600},
+    {pct:88, txt:'[Skill #1] Spot Skill: Tính kích thước lệnh 0.5%...', delay:500},
+    {pct:95, txt:'[SIM] Mô phỏng thực thi lệnh...', delay:600},
+    {pct:100,txt:'✅ Hoàn thành! Đang tạo bài Square...', delay:400},
+  ];
+
+  let cumDelay = 0;
+  const skillFlashes = [['sk2','sk3'],['sk3'],['sk4'],['sk7'],['sk6'],['sk1'],['sk1'],['sk8']];
+  for(let i=0;i<steps.length;i++) {
+    const step = steps[i];
+    cumDelay += step.delay;
+    setTimeout(()=>{
+      progFill.style.width = step.pct+'%';
+      progText.textContent = step.txt;
+      flash(...skillFlashes[i]);
+    }, cumDelay);
+  }
+
+  // Final result
+  setTimeout(async () => {
+    const riskScore = Math.floor(rnd(5,28));
+    const pnlPct = rnd(8, 42).toFixed(1);
+    const pnlUSD = (portfolio * 0.005 * parseFloat(pnlPct)/100).toFixed(2);
+    const size = (portfolio * 0.005).toFixed(0);
+
+    const isSafe = riskScore < 30;
+    const color = isSafe ? 'var(--accent2)' : 'var(--danger)';
+
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = isSafe ? `
+      <div style="border-top:1px solid rgba(0,212,170,0.2);padding-top:8px;margin-top:4px;">
+        <div style="color:var(--accent2);margin-bottom:4px;">✅ COPY TRADE THỰC HIỆN (MÔ PHỎNG)</div>
+        <div style="color:var(--muted);">🛡️ Điểm rủi ro: <span style="color:var(--accent2)">${riskScore}/100</span> · AN TOÀN</div>
+        <div style="color:var(--muted);">💰 Size: <span style="color:var(--text)">$${size} USDT (0.5%)</span></div>
+        <div style="color:var(--muted);">📈 PNL mô phỏng: <span style="color:var(--accent2)">+${pnlPct}% (+$${pnlUSD})</span></div>
+        <div style="color:var(--muted);">⚡ Thời gian: <span style="color:var(--text)">${Math.floor(rnd(8,25))} phút</span></div>
+      </div>
+    ` : `
+      <div style="border-top:1px solid rgba(255,59,59,0.2);padding-top:8px;margin-top:4px;">
+        <div style="color:var(--danger);margin-bottom:4px;">🚨 TỪ CHỐI – ĐIỂM RỦI RO CAO</div>
+        <div style="color:var(--muted);">🛡️ Điểm rủi ro: <span style="color:var(--danger)">${riskScore}/100</span></div>
+        <div style="color:var(--muted);">❌ Phát hiện rủi ro cao – Không copy trade</div>
+        <div style="color:var(--muted);">✅ Tài khoản được BẢO VỆ</div>
+      </div>
+    `;
+
+    // Record trade + start TP/SL monitor
+    if(isSafe) {
+      const entryPrice = prices[token+'USDT']?.lastPrice || 0;
+      startTPSLMonitor(alertId, token, entryPrice, parseFloat(size));
+      addTrade(token, size, pnlPct, pnlUSD, riskScore);
+      // Auto Square post
+      flash('sk8');
+      setTimeout(()=>{
+        showSquarePost(
+          `sqPost`,
+          `🦞 WHALE GUARDIAN COPIER v4 vừa COPY TRADE thành công!\n\n🐋 Whale mua ${token} (${amount})\n⚡ One-Click Copy → $${size} USDT (0.5% danh mục)\n📈 PNL mô phỏng: +${pnlPct}% (+$${pnlUSD})\n🛡️ Risk Score: ${riskScore}/100 · AN TOÀN ✅\n\n⏱ Toàn bộ quy trình: audit → signal → copy → post\nChỉ cần 1 CLICK! 🦞\n\n✅ 11 Binance Skills · Claude AI · Auto Whale Alert`,
+          '#WhaleGuardian #OneClickCopy #OpenClaw2026 #BinanceSquare #CryptoAI #WhaleCopier'
+        );
+        showToast(`✅ ${t("toast_copy_ok")}: +${pnlPct}% · ${token}`);
+      }, 1000);
+    }
+  }, cumDelay + 200);
+}
+
+function showSquarePost(postId, content, tags) {
+  const p = document.getElementById(postId);
+  if(!p) return;
+  document.getElementById(postId.replace('sqPost','sqBody') || 'sqBody').textContent = content;
+  document.getElementById(postId.replace('sqPost','sqTags') || 'sqTags').textContent = tags;
+  p.classList.add('show');
+  p.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ══════════════════════════════════════════════════
+// AUTO WHALE ALERT SCHEDULER
+// ══════════════════════════════════════════════════
+function triggerNewAlert() {
+  const data = WHALE_TEMPLATES[alertIndex % WHALE_TEMPLATES.length];
+  alertIndex++;
+  createWhaleAlert(data, true);
+}
+
+// Auto trigger alerts every 25 seconds
+function startAutoAlerts() {
+  // Initial alerts
+  createWhaleAlert(WHALE_TEMPLATES[0]);
+  createWhaleAlert(WHALE_TEMPLATES[1]);
+  createWhaleAlert(WHALE_TEMPLATES[2]);
+  // Auto new alerts
+  setInterval(() => {
+    if(document.getElementById('tab-alerts').classList.contains('active')) {
+      triggerNewAlert();
+    }
+  }, 25000);
+}
+
+// ══════════════════════════════════════════════════
+// PNL DASHBOARD
+// ══════════════════════════════════════════════════
+function addTrade(token, size, pnlPct, pnlUSD, riskScore) {
+  trades.unshift({
+    token, size: parseFloat(size), pnlPct: parseFloat(pnlPct),
+    pnlUSD: parseFloat(pnlUSD), riskScore,
+    time: ts(), date: new Date().toLocaleDateString('vi-VN'),
+    status: parseFloat(pnlPct) > 0 ? 'win' : 'loss'
+  });
+  if(trades.length > 20) trades.pop();
+}
+
+// Seed initial trades for demo
+function seedTrades() {
+  const tokens = ['BTC','ETH','PEPE','SOL','BRETT','WIF','BONK','DOGE'];
+  for(let i=0;i<12;i++) {
+    const pnlPct = rnd(-8, 45);
+    const size = rnd(40, 60);
+    trades.push({
+      token: tokens[i%tokens.length],
+      size, pnlPct, pnlUSD: size*pnlPct/100,
+      riskScore: Math.floor(rnd(5,28)),
+      time: `${String(10+i).padStart(2,'0')}:${String(Math.floor(rnd(0,59))).padStart(2,'0')}:00`,
+      date: new Date(Date.now() - i*86400000*rnd(0.5,2)).toLocaleDateString('vi-VN'),
+      status: pnlPct > 0 ? 'win' : 'loss'
+    });
+  }
+}
+
+function renderDashboard() {
+  // Stats
+  const wins = trades.filter(t=>t.status==='win').length;
+  const totalPnl = trades.reduce((s,t)=>s+t.pnlUSD,0);
+  const winRate = trades.length ? Math.round(wins/trades.length*100) : 0;
+  const bestTrade = trades.length ? trades.reduce((a,b)=>a.pnlPct>b.pnlPct?a:b) : null;
+
+  document.getElementById('pnlStats').innerHTML = `
+    <div class="stat-card"><div class="stat-val ${totalPnl>=0?'green':'red'}">${totalPnl>=0?'+':''}$${Math.abs(totalPnl).toFixed(0)}</div><div class="stat-label" data-i18n="total_pnl">💰 TỔNG PNL (USD)</div></div>
+    <div class="stat-card"><div class="stat-val green">${winRate}%</div><div class="stat-label" data-i18n="win_rate_label">🎯 WIN RATE</div></div>
+    <div class="stat-card"><div class="stat-val">${trades.length}</div><div class="stat-label" data-i18n="trades_copied">⚡ LỆNH ĐÃ COPY</div></div>
+    <div class="stat-card"><div class="stat-val green">${bestTrade?'+'+bestTrade.pnlPct.toFixed(1)+'%':'—'}</div><div class="stat-label" data-i18n="best_trade">🏆 BEST TRADE</div></div>
+  `;
+
+  document.getElementById('winRateLabel').textContent = `Win Rate: ${winRate}% (${wins}/${trades.length})`;
+
+  // Trade list
+  document.getElementById('tradeList').innerHTML = trades.map(t => `
+    <div class="th-row">
+      <span style="color:var(--text);font-weight:700;">${t.token}</span>
+      <span style="color:var(--muted);">$${t.size.toFixed(0)}</span>
+      <span class="${t.pnlPct>=0?'up':'down'}">${t.pnlPct>=0?'+':''}${t.pnlPct.toFixed(1)}%</span>
+      <span class="${t.pnlUSD>=0?'up':'down'}">${t.pnlUSD>=0?'+':''}$${Math.abs(t.pnlUSD).toFixed(1)}</span>
+      <span style="color:${t.riskScore<25?'var(--accent2)':t.riskScore<50?'var(--accent3)':'var(--danger)'}">🛡️${t.riskScore}</span>
+    </div>
+  `).join('');
+
+  drawChart();
+}
+
+function drawChart() {
+  const canvas = document.getElementById('pnlChart');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * window.devicePixelRatio || 800;
+  canvas.height = 160 * window.devicePixelRatio || 160;
+  ctx.scale(window.devicePixelRatio||1, window.devicePixelRatio||1);
+  const W = canvas.offsetWidth, H = 160;
+
+  // Build cumulative PNL
+  const reversed = [...trades].reverse();
+  let cum = 0;
+  const pts = [{x:0,y:0}];
+  reversed.forEach((t,i) => {
+    cum += t.pnlUSD;
+    pts.push({x:i+1, y:cum});
+  });
+
+  const maxY = Math.max(...pts.map(p=>p.y), 1);
+  const minY = Math.min(...pts.map(p=>p.y), 0);
+  const rangeY = maxY - minY || 1;
+
+  const pad = {l:40, r:20, t:20, b:30};
+  const cW = W - pad.l - pad.r;
+  const cH = H - pad.t - pad.b;
+
+  const toX = (i) => pad.l + (i/(pts.length-1||1))*cW;
+  const toY = (v) => pad.t + cH - ((v-minY)/rangeY)*cH;
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(10,58,92,0.5)';
+  ctx.lineWidth = 1;
+  for(let i=0;i<=4;i++) {
+    const y = pad.t + (i/4)*cH;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W-pad.r, y); ctx.stroke();
+    const val = maxY - (i/4)*rangeY;
+    ctx.fillStyle = 'rgba(90,143,168,0.7)';
+    ctx.font = `${10*window.devicePixelRatio}px Space Mono`;
+    ctx.fillText((val>=0?'+':'')+'$'+val.toFixed(0), 2, y+4);
+  }
+
+  // Area fill
+  const grad = ctx.createLinearGradient(0, pad.t, 0, H-pad.b);
+  grad.addColorStop(0, 'rgba(0,212,170,0.25)');
+  grad.addColorStop(1, 'rgba(0,212,170,0.02)');
+  ctx.beginPath();
+  ctx.moveTo(toX(0), toY(pts[0].y));
+  pts.forEach((p,i) => { if(i>0) ctx.lineTo(toX(i), toY(p.y)); });
+  ctx.lineTo(toX(pts.length-1), H-pad.b);
+  ctx.lineTo(toX(0), H-pad.b);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  ctx.strokeStyle = '#00d4aa';
+  ctx.lineWidth = 2.5;
+  ctx.lineJoin = 'round';
+  pts.forEach((p,i) => i===0 ? ctx.moveTo(toX(0),toY(p.y)) : ctx.lineTo(toX(i),toY(p.y)));
+  ctx.stroke();
+
+  // Dots
+  pts.forEach((p,i) => {
+    ctx.beginPath();
+    ctx.arc(toX(i), toY(p.y), 3.5, 0, Math.PI*2);
+    ctx.fillStyle = p.y >= 0 ? '#00d4aa' : '#ff3b3b';
+    ctx.fill();
+  });
+}
+
+// ══════════════════════════════════════════════════
+// AI TERMINAL
+// ══════════════════════════════════════════════════
+const tb = document.getElementById('tb');
+
+function logTerm(cls, html, delay=0) {
+  return new Promise(r => setTimeout(()=>{
+    const d=document.createElement('div');
+    d.className='ln';
+    d.innerHTML=`<span class="t">${ts()}</span><span class="${cls}">${html}</span>`;
+    tb.appendChild(d); tb.scrollTop=tb.scrollHeight; r();
+  }, delay));
+}
+
+async function callClaude(msg) {
+  const priceCtx = Object.values(prices).map(v=>`${v.symbol.replace('USDT','')}=$${fmt(v.lastPrice)} (${parseFloat(v.priceChangePercent).toFixed(2)}%)`).join(', ');
+  const sys = `Bạn là Whale Guardian Copier v4 – AI agent giao dịch thông minh nhất Binance OpenClaw 2026.
+Tính năng mới v4: Auto Whale Alert Feed · One-Click Copy Trade · PNL Dashboard với biểu đồ tăng trưởng.
+11 Binance Skills: Spot(1) Address(2) Token(3) Market(4) Meme Rush(5) Signal(6) Audit(7) Square(8) Alpha(9) Futures(10) Margin(11)
+Giá thật Binance WebSocket (${ts()}): ${priceCtx}
+Quy tắc: Bắt đầu bằng "🦞 Whale Guardian Copier:". Nêu rõ Skill số mấy. Số liệu cụ thể từ giá thật. Khi hỏi Square → bài viral hoàn chỉnh. Trả lời bằng ${window._claudeLang || "tiếng Việt"}, ngắn gọn có emoji.`;
+
+  const res = await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:[{role:'user',content:msg}]})
+  });
+  const data = await res.json();
+  return data.content?.[0]?.text || 'Không có phản hồi.';
+}
+
+async function processCmd(cmd) {
+  await logTerm('step',`› ${cmd.substring(0,88)}${cmd.length>88?'...':''}`);
+  await logTerm('dim','━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  const low=cmd.toLowerCase();
+
+  if(low.includes('whale')||low.includes('address')) flash('sk1','sk2','sk3','sk6');
+  if(low.includes('btc')||low.includes('eth')||low.includes('market')) flash('sk1','sk4','sk6');
+  if(low.includes('meme')||low.includes('rush')) flash('sk5','sk4');
+  if(low.includes('signal')||low.includes('tín hiệu')) flash('sk6');
+  if(low.includes('audit')||low.includes('contract')||low.includes('rug')) flash('sk7');
+  if(low.includes('square')||low.includes('viral')) flash('sk8');
+  if(low.includes('alpha')||low.includes('on-chain')) flash('sk9');
+  if(low.includes('futures')||low.includes('funding')||low.includes('long')||low.includes('short')) flash('sk10');
+  if(low.includes('margin')||low.includes('liquidat')||low.includes('đòn bẩy')) flash('sk11');
+
+  await logTerm('ai','🤖 [Claude AI] Đang phân tích...', 80);
+  const ll=document.createElement('div');
+  ll.className='ln';
+  ll.innerHTML=`<span class="t">${ts()}</span><span class="thinking">⏳ Đang xử lý với 11 Skills...</span>`;
+  tb.appendChild(ll); tb.scrollTop=tb.scrollHeight;
+
+  try {
+    const reply = await callClaude(cmd);
+    ll.remove();
+    const lines = reply.split('\n').filter(l=>l.trim());
+    for(let i=0;i<lines.length;i++){
+      const line=lines[i];
+      let cls='info';
+      if(line.includes('✅')||line.includes('AN TOÀN')) cls='ok';
+      else if(line.includes('⚠️')||line.includes('CẢNH BÁO')) cls='warn';
+      else if(line.includes('🚨')||line.includes('NGUY HIỂM')) cls='err';
+      else if(line.includes('🦞')||line.includes('Skill #')) cls='ai';
+      else if(line.includes('📊')||line.includes('📈')||line.includes('🌐')) cls='step';
+      await logTerm(cls, line.replace(/</g,'&lt;'), i*60);
+    }
+    if(low.includes('square')||low.includes('viral')) {
+      setTimeout(()=>{
+        flash('sk8');
+        const p=document.getElementById('sqPost2');
+        document.getElementById('sqBody2').textContent=reply.substring(0,500);
+        document.getElementById('sqTags2').textContent='#WhaleGuardian #OpenClaw2026 #BinanceSquare #11Skills #CryptoAI';
+        p.classList.add('show'); p.scrollIntoView({behavior:'smooth',block:'nearest'});
+      }, lines.length*60+400);
+    }
+    if(low.includes('audit')||low.includes('contract')) {
+      const m=reply.match(/(\d+)\s*\/\s*100/);
+      const score=m?parseInt(m[1]):Math.floor(rnd(5,28));
+      const tok=(cmd.match(/\b[A-Z]{2,8}\b/)||['TOKEN'])[0];
+      const f=document.getElementById('riskFill2');
+      if(f){
+        f.style.width=score+'%';
+        document.getElementById('riskScore2').textContent=score+'/100';
+        f.style.background=score<25?'#00d4aa':score<50?'#F0B90B':'#ff3b3b';
+        document.getElementById('riskVerdict2').innerHTML=score<25?`✅ <span style="color:#00d4aa">${tok} – AN TOÀN</span>`:score<50?`⚠️ <span style="color:#F0B90B">${tok} – TRUNG BÌNH</span>`:`🚨 <span style="color:#ff3b3b">${tok} – NGUY HIỂM</span>`;
+      }
+    }
+  } catch(e) {
+    ll.remove();
+    await logTerm('err',`🚨 Claude API: ${e.message}`);
+  }
+  await logTerm('sys','🦞 Bạn muốn thử tính năng nào tiếp theo?',100);
+}
+
+async function send(){const inp=document.getElementById('inp');const v=inp.value.trim();if(!v)return;inp.value='';await processCmd(v);}
+async function ask(q){document.getElementById('inp').value=q;switchTab('terminal');await send();}
+async function runAudit(){const t=document.getElementById('tokenAddr').value.trim()||'PEPE';flash('sk7');await processCmd(`Audit contract token ${t}: rug pull, honeypot, mintable, top holders. Điểm rủi ro 0-100.`);}
+async function runAudit2(){const t=document.getElementById('tokenAddr2').value.trim()||'PEPE';flash('sk7');await processCmd(`Audit contract token ${t}: rug pull, honeypot, mintable, top holders. Điểm rủi ro 0-100.`);}
+
+document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter')send();});
+
+// ══════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════
+initPrices();
+seedTrades();
+startAutoAlerts();
+initLang();
+
+// ══════════════════════════════════════════════════
+// ⚡ FLASH ORDER MULTI-CHAIN SYSTEM
+// ══════════════════════════════════════════════════
+let flashMode = 'buy';
+let flashPair = 'BTCUSDT';
+let flashChain = 'cex';
+let slippage = 0.1;
+let balance = 10000;
+let recentOrders = [];
+let walletConnected = false;
+let selectedPumpToken = null;
+
+// ── CHAIN CONFIG ──
+const CHAIN_CONFIG = {
+  cex: {
+    name: 'Binance CEX', tag: 'CEX', type: 'cex', color: '#F0B90B',
+    dex: 'Binance Spot', router: 'Binance Spot Skill',
+    nativeCurrency: 'USDT',
+    pairs: [
+      {symbol:'BTCUSDT',label:'BTC/USDT'},
+      {symbol:'ETHUSDT',label:'ETH/USDT'},
+      {symbol:'BNBUSDT',label:'BNB/USDT'},
+      {symbol:'SOLUSDT',label:'SOL/USDT'},
+      {symbol:'PEPEUSDT',label:'PEPE/USDT'},
+      {symbol:'WIFUSDT',label:'WIF/USDT'},
+      {symbol:'DOGEUSDT',label:'DOGE/USDT'},
+      {symbol:'BRETTUSDT',label:'BRETT/USDT'},
+    ],
+    steps: ['Kết nối Binance Spot API','Lấy order book realtime','Đặt Market Order','Lệnh khớp thành công'],
+    stepTimes: [18, 22, 35, 20],
+  },
+  bsc: {
+    name: 'BSC', tag: 'DEX', type: 'dex', color: '#F0B90B',
+    dex: 'PancakeSwap V3', router: '0x13f4EA83D0bd40E75C8222255bc855a974568Dd4',
+    nativeCurrency: 'BNB',
+    pairs: [
+      {symbol:'CAKEUSDT',label:'CAKE/BNB', price: 2.34, chg: 3.2},
+      {symbol:'PEPEUSDT',label:'PEPE/BNB', price: 0.0000085, chg: 5.4},
+      {symbol:'BRETTUSDT',label:'BRETT/BNB', price: 0.062, chg: 8.4},
+      {symbol:'FLOKIUSDT',label:'FLOKI/BNB', price: 0.000182, chg: 2.1},
+      {symbol:'BABYDOGEUSDT',label:'BABYDOGE/BNB', price: 0.0000024, chg: -1.3},
+    ],
+    steps: ['Kết nối BSC RPC','Gọi PancakeSwap Router','Tính output amount','Ký transaction (MetaMask)','Broadcast tx lên BSC'],
+    stepTimes: [25, 30, 20, 45, 55],
+    route: ['BNB', '→', 'WBNB', '→', 'TOKEN'],
+    routeInfo: [{label:'Pool Fee', val:'0.25%'},{label:'Price Impact', val:'0.05%'},{label:'Min Received', val:'calc'}],
+  },
+  eth: {
+    name: 'Ethereum', tag: 'DEX', type: 'dex', color: '#627EEA',
+    dex: 'Uniswap V3', router: '0xE592427A0AEce92De3Edee1F18E0157C05861564',
+    nativeCurrency: 'ETH',
+    pairs: [
+      {symbol:'UNIUSDT',label:'UNI/ETH', price: 8.92, chg: 1.8},
+      {symbol:'LINKUSDT',label:'LINK/ETH', price: 14.2, chg: 2.4},
+      {symbol:'AAVEUSDT',label:'AAVE/ETH', price: 142, chg: -0.8},
+      {symbol:'PEPEUSDT',label:'PEPE/ETH', price: 0.0000085, chg: 5.4},
+      {symbol:'MOGUSDT',label:'MOG/ETH', price: 0.00000192, chg: 12.7},
+    ],
+    steps: ['Kết nối Ethereum RPC','Gọi Uniswap V3 Router','Tính optimal path','Ký transaction (MetaMask)','Broadcast + wait confirm'],
+    stepTimes: [30, 35, 25, 50, 80],
+    route: ['ETH', '→', 'WETH', '→', 'USDC', '→', 'TOKEN'],
+    routeInfo: [{label:'Pool Fee', val:'0.3%'},{label:'Price Impact', val:'0.08%'},{label:'Gas (Gwei)', val:'~32'}],
+  },
+  sol: {
+    name: 'Solana', tag: 'DEX', type: 'dex', color: '#9945FF',
+    dex: 'Jupiter / Raydium', router: 'JUP4Fb2cqiRUcaTHdrPC8h2gNsA2ETXiPDD33WcGuJB',
+    nativeCurrency: 'SOL',
+    pairs: [
+      {symbol:'BONKUSDT',label:'BONK/SOL', price: 0.0000243, chg: 4.2},
+      {symbol:'WIFUSDT',label:'WIF/SOL', price: 0.82, chg: -1.3},
+      {symbol:'JUPUSDT',label:'JUP/SOL', price: 0.58, chg: 2.8},
+      {symbol:'PONKEUSDT',label:'PONKE/SOL', price: 0.312, chg: 7.6},
+      {symbol:'POPCAT',label:'POPCAT/SOL', price: 0.485, chg: 3.1},
+    ],
+    steps: ['Kết nối Solana RPC','Jupiter route optimization','Tạo swap transaction','Ký (Phantom Wallet)','Submit + confirm (~400ms)'],
+    stepTimes: [15, 25, 20, 30, 40],
+    route: ['SOL', '→', 'TOKEN'],
+    routeInfo: [{label:'Route', val:'Jupiter'},{label:'Fee', val:'0.2%'},{label:'Confirm', val:'~400ms'}],
+  },
+  base: {
+    name: 'Base', tag: 'DEX', type: 'dex', color: '#0052FF',
+    dex: 'Aerodrome', router: '0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43',
+    nativeCurrency: 'ETH',
+    pairs: [
+      {symbol:'BRETTUSDT',label:'BRETT/ETH', price: 0.062, chg: 8.4},
+      {symbol:'AEROUSDT',label:'AERO/ETH', price: 1.24, chg: 1.9},
+      {symbol:'MOGUSDT',label:'MOG/ETH', price: 0.00000192, chg: 12.7},
+      {symbol:'DEGENUSDT',label:'DEGEN/ETH', price: 0.0082, chg: 5.3},
+      {symbol:'TOSHIUSDT',label:'TOSHI/ETH', price: 0.000094, chg: -2.1},
+    ],
+    steps: ['Kết nối Base RPC (L2)','Gọi Aerodrome Router','Tính stable/volatile pool','Ký transaction (MetaMask)','Submit L2 tx (~2s confirm)'],
+    stepTimes: [20, 25, 18, 40, 30],
+    route: ['ETH', '→', 'TOKEN'],
+    routeInfo: [{label:'Protocol', val:'Aerodrome'},{label:'Fee', val:'0.05%'},{label:'L2 Gas', val:'~$0.01'}],
+  },
+  pump: {
+    name: 'Pump.fun', tag: 'MEME', type: 'dex', color: '#ff6b35',
+    dex: 'Pump.fun AMM', router: '6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P',
+    nativeCurrency: 'SOL',
+    pairs: [], // handled by pump panel
+    steps: ['Kết nối Solana RPC','Gọi Pump.fun AMM','Tính bonding curve price','Ký (Phantom Wallet)','Submit tx (~400ms)'],
+    stepTimes: [15, 20, 18, 30, 35],
+    route: ['SOL', '→', 'MEME'],
+    routeInfo: [{label:'Curve', val:'Bonding'},{label:'Fee', val:'1%'},{label:'Migrates at', val:'$69K'}],
+  },
+};
+
+// ── PUMP.FUN MOCK TOKENS ──
+const PUMP_TOKENS = [
+  {name:'CHAD', addr:'7xKX...3mR2', price:0.0000234, chg:+284, mcap:'$42K', bonding:68, icon:'💪'},
+  {name:'MOON', addr:'9pLZ...7vN4', price:0.00000891, chg:+127, mcap:'$18K', bonding:34, icon:'🌙'},
+  {name:'DEGEN', addr:'3qWT...1kP8', price:0.0000056, chg:+89, mcap:'$9K', bonding:21, icon:'😈'},
+  {name:'FROG', addr:'8nBR...5xQ1', price:0.0000312, chg:+56, mcap:'$67K', bonding:82, icon:'🐸'},
+  {name:'ROCKET', addr:'2mVX...9yR3', price:0.00000145, chg:+45, mcap:'$4K', bonding:12, icon:'🚀'},
+  {name:'BASED', addr:'5kHT...2wL6', price:0.0000478, chg:+38, mcap:'$89K', bonding:91, icon:'🔵'},
+  {name:'PEPE2', addr:'4jGS...8nK7', price:0.0000092, chg:-12, mcap:'$11K', bonding:28, icon:'🐸'},
+  {name:'WAGMI', addr:'6dFR...3pM5', price:0.0000267, chg:+223, mcap:'$55K', bonding:74, icon:'🤝'},
+];
+
+function renderPumpTokens(filter='') {
+  const list = document.getElementById('pumpTokens');
+  const filtered = PUMP_TOKENS.filter(t =>
+    !filter || t.name.toLowerCase().includes(filter.toLowerCase()) ||
+    t.addr.toLowerCase().includes(filter.toLowerCase())
+  );
+  list.innerHTML = filtered.map(t => `
+    <div class="pump-token ${selectedPumpToken?.name===t.name?'selected':''}" onclick="selectPumpToken('${t.name}')">
+      <div class="pump-tok-info">
+        <div class="pump-tok-icon">${t.icon}</div>
+        <div>
+          <div class="pump-tok-name">${t.name}</div>
+          <div class="pump-tok-addr">${t.addr}</div>
+          <div class="pump-bonding">Bonding: <span>${t.bonding}%</span> ${t.bonding>80?'🔥 Ready to migrate!':''}</div>
+        </div>
+      </div>
+      <div class="pump-tok-stats">
+        <div class="pump-tok-price">$${t.price.toExponential(2)}</div>
+        <div class="pump-tok-chg ${t.chg>=0?'up':'down'}">${t.chg>=0?'+':''}${t.chg}%</div>
+        <div style="font-size:.58rem;color:var(--muted);">${t.mcap}</div>
+      </div>
+    </div>
+  `).join('') || '<div style="color:var(--muted);font-size:.65rem;text-align:center;padding:10px;">Không tìm thấy token</div>';
+}
+
+function filterPumpTokens() {
+  const q = document.getElementById('pumpSearch').value;
+  renderPumpTokens(q);
+}
+
+function selectPumpToken(name) {
+  selectedPumpToken = PUMP_TOKENS.find(t => t.name === name);
+  renderPumpTokens(document.getElementById('pumpSearch').value);
+  if (selectedPumpToken) {
+    document.getElementById('flashPrice').textContent = '$' + selectedPumpToken.price.toExponential(2);
+    const chgEl = document.getElementById('flashChg');
+    chgEl.textContent = (selectedPumpToken.chg>=0?'▲ +':'▼ ') + Math.abs(selectedPumpToken.chg) + '%';
+    chgEl.className = 'price-change ' + (selectedPumpToken.chg>=0?'up':'down');
+    document.getElementById('flashBid').textContent = '$' + (selectedPumpToken.price*0.998).toExponential(2);
+    document.getElementById('flashAsk').textContent = '$' + (selectedPumpToken.price*1.002).toExponential(2);
+    document.getElementById('coinLabel').textContent = `SỐ LƯỢNG (${selectedPumpToken.name})`;
+    syncAmount('usdt');
+  }
+}
+
+// ── CHAIN SELECTION ──
+function selectChain(chain) {
+  flashChain = chain;
+  const cfg = CHAIN_CONFIG[chain];
+
+  // Update chain buttons
+  document.querySelectorAll('.chain-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('chain-'+chain).classList.add('active');
+
+  // Wallet bar
+  const wb = document.getElementById('walletBar');
+  if (cfg.type === 'dex') {
+    wb.classList.add('show');
+    document.getElementById('walletChainName').textContent = cfg.name;
+    if (walletConnected) {
+      document.getElementById('walletAddr').textContent = '0x7a25...5646';
+      document.getElementById('walletBtn').textContent = '✅ Đã kết nối';
+      document.getElementById('walletBtn').className = 'btn-wallet connected';
+    }
+  } else {
+    wb.classList.remove('show');
+  }
+
+  // Pump panel
+  const pp = document.getElementById('pumpPanel');
+  if (chain === 'pump') {
+    pp.classList.add('show');
+    renderPumpTokens();
+  } else {
+    pp.classList.remove('show');
+    selectedPumpToken = null;
+  }
+
+  // DEX route
+  const dr = document.getElementById('dexRoute');
+  if (cfg.type === 'dex' && chain !== 'pump' && cfg.route) {
+    dr.classList.add('show');
+    document.getElementById('routeSteps').innerHTML =
+      cfg.route.map(s => s==='→' ?
+        `<span class="route-arrow">→</span>` :
+        `<span class="route-step">${s}</span>`
+      ).join('');
+    document.getElementById('routeInfo').innerHTML =
+      cfg.routeInfo.map(r => `<span class="route-stat">${r.label}: <span>${r.val}</span></span>`).join('');
+  } else {
+    dr.classList.remove('show');
+  }
+
+  // DEX tag
+  document.getElementById('dexTypeTag').textContent = cfg.tag;
+  document.getElementById('dexTypeTag').className = 'dex-tag ' + (cfg.type==='cex'?'tag-cex':'tag-dex');
+  document.getElementById('priceSourceLabel').textContent = cfg.type==='cex' ? '● BINANCE LIVE' : `● ${cfg.dex.toUpperCase()}`;
+
+  // Render pairs
+  renderChainPairs(chain);
+
+  // Update balance label
+  document.getElementById('usdtLabel').textContent = `SỐ LƯỢNG (${cfg.nativeCurrency})`;
+
+  // Slippage defaults
+  if (chain === 'pump') setSlip(3.0);
+  else if (cfg.type === 'dex') setSlip(0.5);
+  else setSlip(0.1);
+
+  // Select first pair
+  if (cfg.pairs.length > 0) {
+    flashPair = cfg.pairs[0].symbol;
+    updateFlashPrice();
+    renderOrderBook();
+    syncAmount('usdt');
+  }
+}
+
+function renderChainPairs(chain) {
+  const cfg = CHAIN_CONFIG[chain];
+  const sel = document.getElementById('pairSelector');
+  if (chain === 'pump') {
+    sel.innerHTML = '<span style="font-size:.65rem;color:var(--muted);font-family:Space Mono,monospace;">Chọn token từ danh sách Pump.fun bên trên ↑</span>';
+    return;
+  }
+  sel.innerHTML = cfg.pairs.map((p,i) =>
+    `<div class="pair-btn ${i===0?'active':''}" onclick="selectPair('${p.symbol}')">${p.label}</div>`
+  ).join('');
+  if (cfg.pairs.length > 0) flashPair = cfg.pairs[0].symbol;
+}
+
+function connectWallet() {
+  const btn = document.getElementById('walletBtn');
+  const addr = document.getElementById('walletAddr');
+  btn.textContent = 'Đang kết nối...';
+  btn.disabled = true;
+  setTimeout(() => {
+    walletConnected = true;
+    // Simulate wallet connect
+    const mockAddr = flashChain === 'sol' || flashChain === 'pump'
+      ? '7xKXt...3mR2 (Phantom)'
+      : '0x7a250d...5646 (MetaMask)';
+    addr.textContent = mockAddr;
+    addr.style.color = 'var(--accent2)';
+    btn.textContent = '✅ Đã kết nối';
+    btn.className = 'btn-wallet connected';
+    btn.disabled = false;
+    showToast(`✅ Wallet kết nối thành công! ${CHAIN_CONFIG[flashChain].name}`);
+  }, 1200);
+}
+
+function setMode(mode) {
+  flashMode = mode;
+  document.getElementById('modeBuy').classList.toggle('active', mode==='buy');
+  document.getElementById('modeSell').classList.toggle('active', mode==='sell');
+  const btn = document.getElementById('flashBtn');
+  const chainName = CHAIN_CONFIG[flashChain]?.dex || 'Binance';
+  if (mode === 'buy') {
+    btn.className = 'flash-btn buy';
+    btn.innerHTML = `⚡ FLASH BUY via ${chainName} (0.1s)`;
+  } else {
+    btn.className = 'flash-btn sell';
+    btn.innerHTML = `⚡ FLASH SELL via ${chainName} (0.1s)`;
+  }
+}
+
+function selectPair(pair) {
+  flashPair = pair;
+  document.querySelectorAll('.pair-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.replace('/USDT','').replace('/BNB','').replace('/ETH','').replace('/SOL','')+'USDT' === pair ||
+      b.getAttribute('onclick')?.includes(pair));
+  });
+  const sym = pair.replace('USDT','').replace('BNB','').replace('ETH','').replace('SOL','');
+  document.getElementById('coinLabel').textContent = `SỐ LƯỢNG (${sym})`;
+  updateFlashPrice();
+  renderOrderBook();
+  syncAmount('usdt');
+}
+
+function updateFlashPrice() {
+  const cfg = CHAIN_CONFIG[flashChain];
+  let price, chg;
+  if (flashChain === 'cex') {
+    const p = prices[flashPair];
+    if (!p) return;
+    price = parseFloat(p.lastPrice);
+    chg = parseFloat(p.priceChangePercent);
+  } else if (flashChain === 'pump' && selectedPumpToken) {
+    price = selectedPumpToken.price;
+    chg = selectedPumpToken.chg;
+  } else {
+    const pairCfg = cfg.pairs.find(p => p.symbol === flashPair);
+    if (!pairCfg) return;
+    price = pairCfg.price * (1 + (Math.random()-0.5)*0.002);
+    chg = pairCfg.chg;
+  }
+  document.getElementById('flashPrice').textContent = '$' + fmt(price);
+  const chgEl = document.getElementById('flashChg');
+  chgEl.textContent = (chg>=0?'▲ +':'▼ ') + Math.abs(typeof chg==='number'?chg.toFixed(2):chg) + '%';
+  chgEl.className = 'price-change ' + (chg>=0?'up':'down');
+  const spread = price * 0.0002;
+  document.getElementById('flashBid').textContent = '$' + fmt(price - spread);
+  document.getElementById('flashAsk').textContent = '$' + fmt(price + spread);
+}
+
+function renderOrderBook() {
+  const cfg = CHAIN_CONFIG[flashChain];
+  let price;
+  if (flashChain === 'cex') {
+    price = parseFloat(prices[flashPair]?.lastPrice) || 83500;
+  } else if (flashChain === 'pump' && selectedPumpToken) {
+    price = selectedPumpToken.price;
+  } else {
+    price = cfg.pairs.find(p=>p.symbol===flashPair)?.price || 1;
+  }
+  const ob = document.getElementById('orderbook');
+  const asks = Array.from({length:4}, (_,i) => ({ price: price*(1+(i+1)*0.0003), qty:(Math.random()*2+0.1).toFixed(3) })).reverse();
+  const bids = Array.from({length:4}, (_,i) => ({ price: price*(1-(i+1)*0.0003), qty:(Math.random()*2+0.1).toFixed(3) }));
+  ob.innerHTML = `
+    <div class="ob-side">
+      <div class="ob-title">ASK</div>
+      ${asks.map(a=>`<div class="ob-row"><span class="ob-price-ask">$${fmt(a.price)}</span><span class="ob-qty">${a.qty}</span></div>`).join('')}
+    </div>
+    <div class="ob-side">
+      <div class="ob-title">BID</div>
+      ${bids.map(b=>`<div class="ob-row"><span class="ob-price-bid">$${fmt(b.price)}</span><span class="ob-qty">${b.qty}</span></div>`).join('')}
+    </div>`;
+}
+
+function syncAmount(from) {
+  let price;
+  if (flashChain === 'cex') {
+    price = parseFloat(prices[flashPair]?.lastPrice) || 83500;
+  } else if (flashChain === 'pump' && selectedPumpToken) {
+    price = selectedPumpToken.price;
+  } else {
+    price = CHAIN_CONFIG[flashChain]?.pairs.find(p=>p.symbol===flashPair)?.price || 1;
+  }
+  if (from==='usdt') {
+    const usdt = parseFloat(document.getElementById('amountUsdt').value)||0;
+    document.getElementById('amountCoin').value = (usdt/price).toFixed(6);
+  } else {
+    const coin = parseFloat(document.getElementById('amountCoin').value)||0;
+    document.getElementById('amountUsdt').value = (coin*price).toFixed(2);
+  }
+}
+
+function setPct(pct) {
+  document.getElementById('amountUsdt').value = (balance*pct/100).toFixed(2);
+  syncAmount('usdt');
+}
+
+function setSlip(val) {
+  slippage = val;
+  document.querySelectorAll('.slip-btn').forEach(b => b.classList.remove('active'));
+  const map = {0.1:'slip01',0.5:'slip05',1.0:'slip1',3.0:'slip3'};
+  const el = document.getElementById(map[val]);
+  if (el) el.classList.add('active');
+}
+
+// ── FLASH EXECUTE ──
+async function executeFlashOrder() {
+  const cfg = CHAIN_CONFIG[flashChain];
+  const amountUsdt = parseFloat(document.getElementById('amountUsdt').value)||0;
+  if (amountUsdt<=0) { showToast('⚠️ Nhập số lượng hợp lệ!'); return; }
+  if (amountUsdt>balance) { showToast('⚠️ Số dư không đủ!'); return; }
+  if (flashChain==='pump' && !selectedPumpToken) { showToast('⚠️ Chọn token từ Pump.fun trước!'); return; }
+  if (cfg.type==='dex' && !walletConnected) {
+    showToast('⚠️ Kết nối ví trước khi giao dịch!');
+    document.getElementById('walletBtn').style.animation='pulse 0.5s 3';
+    return;
+  }
+
+  let price;
+  if (flashChain==='cex') price = parseFloat(prices[flashPair]?.lastPrice)||83500;
+  else if (flashChain==='pump') price = selectedPumpToken.price;
+  else price = cfg.pairs.find(p=>p.symbol===flashPair)?.price||1;
+
+  const sym = flashChain==='pump' ? selectedPumpToken.name :
+    flashPair.replace('USDT','').replace('BNB','').replace('ETH','').replace('SOL','');
+  const qty = (amountUsdt/price).toFixed(6);
+
+  const overlay = document.getElementById('execOverlay');
+  const spinWrap = document.getElementById('execSpinWrap');
+  const resultDiv = document.getElementById('execResult');
+  overlay.classList.add('show');
+  spinWrap.style.display='flex';
+  resultDiv.style.display='none';
+
+  const chainColor = cfg.color;
+  document.getElementById('execTitle').textContent = `⚡ ${cfg.dex.toUpperCase()} – ${flashMode.toUpperCase()}ING...`;
+  document.getElementById('execTitle').style.color = flashMode==='buy'?'var(--accent2)':'var(--danger)';
+
+  const steps = cfg.steps;
+  const times = cfg.stepTimes;
+  const stepsEl = document.getElementById('execSteps');
+  stepsEl.innerHTML = steps.map((_,i)=>`<div class="exec-step" id="estep${i}">⏳ ${steps[i]}</div>`).join('');
+
+  const startTime = performance.now();
+  const timer = setInterval(()=>{
+    document.getElementById('execTimer').textContent = ((performance.now()-startTime)/1000).toFixed(3)+'s';
+  },10);
+
+  for (let i=0;i<steps.length;i++) {
+    await new Promise(r=>setTimeout(r, times[i]));
+    document.getElementById('estep'+i).className='exec-step done';
+    document.getElementById('estep'+i).textContent='✅ '+steps[i];
+    if (i<steps.length-1) document.getElementById('estep'+(i+1)).className='exec-step active-step';
+  }
+  clearInterval(timer);
+
+  const execTime = ((performance.now()-startTime)/1000).toFixed(3);
+  const slipAmt = price*(slippage/100);
+  const execPrice = flashMode==='buy' ? price+(Math.random()*slipAmt*0.3) : price-(Math.random()*slipAmt*0.3);
+  const slipPct = Math.abs((execPrice-price)/price*100).toFixed(4);
+  const txHash = '0x'+Math.random().toString(16).slice(2,10)+'...'+Math.random().toString(16).slice(2,8);
+
+  if (flashMode==='buy') balance-=amountUsdt; else balance+=amountUsdt;
+  document.getElementById('balanceLabel').textContent = balance.toLocaleString()+' USDT';
+
+  recentOrders.unshift({pair:flashPair,chain:flashChain,chainLabel:cfg.name,mode:flashMode,price:execPrice,qty,usdt:amountUsdt,time:execTime+'s',ts:ts(),txHash});
+  if (recentOrders.length>10) recentOrders.pop();
+  renderRecentOrders();
+  addTrade(sym, amountUsdt, rnd(5,25).toFixed(1), (amountUsdt*rnd(0.05,0.25)).toFixed(2), Math.floor(rnd(5,20)));
+
+  spinWrap.style.display='none';
+  resultDiv.style.display='block';
+  const isBuy = flashMode==='buy';
+  const chainEmoji = {cex:'🏦',bsc:'🟡',eth:'💎',sol:'🟣',base:'🔵',pump:'🔥'}[flashChain];
+
+  resultDiv.innerHTML = `
+    <div class="res-icon">${isBuy?'🟢':'🔴'}</div>
+    <div class="res-title" style="color:${isBuy?'var(--accent2)':'var(--danger)'}">
+      ✅ FLASH ${flashMode.toUpperCase()} THÀNH CÔNG
+    </div>
+    <div class="res-row"><span class="res-label">⚡ Thời gian</span><span class="res-val" style="color:var(--accent)">${execTime}s</span></div>
+    <div class="res-row"><span class="res-label">${chainEmoji} Chain / DEX</span><span class="res-val">${cfg.name} · ${cfg.dex}</span></div>
+    <div class="res-row"><span class="res-label">💱 Token</span><span class="res-val">${sym}</span></div>
+    <div class="res-row"><span class="res-label">💰 Số lượng</span><span class="res-val">$${parseFloat(amountUsdt).toLocaleString()} · ${qty} ${sym}</span></div>
+    <div class="res-row"><span class="res-label">📈 Giá khớp</span><span class="res-val">$${fmt(execPrice)}</span></div>
+    <div class="res-row"><span class="res-label">📉 Slippage</span><span class="res-val" style="color:var(--accent2)">${slipPct}% (max ${slippage}%)</span></div>
+    ${cfg.type==='dex'?`<div class="res-row"><span class="res-label">🔗 Tx Hash</span><span class="res-val" style="font-size:.62rem">${txHash}</span></div>`:''}
+    <div class="res-row"><span class="res-label">🏦 Số dư còn</span><span class="res-val">${balance.toLocaleString()} USDT</span></div>
+    <div style="background:rgba(240,185,11,0.06);border:1px solid rgba(240,185,11,0.15);border-radius:7px;padding:7px;margin-top:10px;font-size:.62rem;font-family:'Space Mono',monospace;color:var(--muted);">
+      ⚠️ DEMO MODE – ${cfg.type==='cex'?'Cần Binance API Key':'Cần kết nối ví thật'} để giao dịch thật
+    </div>
+    <button class="exec-close" onclick="closeExec()">✓ Đóng</button>
+  `;
+  showToast(`⚡ Flash ${flashMode} ${sym} trên ${cfg.name} khớp ${execTime}s!`);
+  flash('sk1','sk6');
+}
+
+function closeExec() { document.getElementById('execOverlay').classList.remove('show'); }
+
+function renderRecentOrders() {
+  const el = document.getElementById('recentOrders');
+  if (!recentOrders.length) return;
+  const chainEmoji = {cex:'🏦',bsc:'🟡',eth:'💎',sol:'🟣',base:'🔵',pump:'🔥'};
+  el.innerHTML = recentOrders.map(o=>`
+    <div style="display:grid;grid-template-columns:1.2fr 0.6fr 0.6fr 1fr 0.8fr;gap:6px;padding:6px 0;border-bottom:1px solid rgba(10,58,92,0.3);font-family:'Space Mono',monospace;font-size:.62rem;align-items:center;">
+      <span style="color:var(--text);font-weight:700;">${o.pair.replace('USDT','')}</span>
+      <span>${chainEmoji[o.chain]||'🔗'}</span>
+      <span style="color:${o.mode==='buy'?'var(--accent2)':'var(--danger)'};font-weight:700;">${o.mode.toUpperCase()}</span>
+      <span style="color:var(--text);">$${fmt(o.price)}</span>
+      <span style="color:var(--accent);">${o.time}</span>
+    </div>
+  `).join('');
+}
+
+// renderPrices override removed – logic merged into main function
+
+function initFlash() {
+  selectChain('cex');
+  setMode('buy');
+}
+
+
+// ══════════════════════════════════════════════════
+// 🎯 TAKE PROFIT / STOP LOSS SYSTEM
+// ══════════════════════════════════════════════════
+const activeMonitors = {}; // alertId → { intervalId, tp, sl, token, entryPrice, size }
+
+function setTP(id, val) {
+  const el = document.getElementById('tp-'+id);
+  if (el) { el.value = val; updateTPSLInfo(id); }
+}
+
+function setSL(id, val) {
+  const el = document.getElementById('sl-'+id);
+  if (el) { el.value = val; updateTPSLInfo(id); }
+}
+
+function updateTPSLInfo(id) {
+  const tp = parseFloat(document.getElementById('tp-'+id)?.value) || 15;
+  const sl = parseFloat(document.getElementById('sl-'+id)?.value) || 5;
+  const size = (portfolio * 0.005).toFixed(0);
+  const tpUSD = (portfolio * 0.005 * tp / 100).toFixed(1);
+  const slUSD = (portfolio * 0.005 * sl / 100).toFixed(1);
+  const info = document.getElementById('tpsl-info-'+id);
+  if (info) {
+    info.innerHTML = `
+      <span style="color:var(--accent2)">🎯 Chốt lời +${tp}% (+$${tpUSD})</span>
+      &nbsp;·&nbsp;
+      <span style="color:var(--danger)">🛑 Cắt lỗ -${sl}% (-$${slUSD})</span>
+      &nbsp;·&nbsp;
+      <span style="color:var(--muted)">Size: $${size} (0.5%)</span>
+    `;
+  }
+  // Update monitor if active
+  if (activeMonitors[id]) {
+    activeMonitors[id].tp = tp;
+    activeMonitors[id].sl = sl;
+  }
+}
+
+function startTPSLMonitor(alertId, token, entryPrice, size) {
+  const tp = parseFloat(document.getElementById('tp-'+alertId)?.value) || 15;
+  const sl = parseFloat(document.getElementById('sl-'+alertId)?.value) || 5;
+
+  const monitor = document.getElementById('monitor-'+alertId);
+  if (monitor) monitor.classList.add('show');
+
+  let currentPnl = 0;
+  let elapsed = 0;
+
+  activeMonitors[alertId] = { tp, sl, token, entryPrice, size, currentPnl };
+
+  const interval = setInterval(() => {
+    const m = activeMonitors[alertId];
+    if (!m) { clearInterval(interval); return; }
+
+    elapsed += 3;
+    // Simulate realistic price movement
+    const volatility = 0.8;
+    currentPnl += (Math.random() - 0.44) * volatility;
+    currentPnl = Math.max(-m.sl * 1.2, Math.min(m.tp * 1.2, currentPnl));
+    m.currentPnl = currentPnl;
+
+    const pnlUSD = (size * currentPnl / 100).toFixed(2);
+    const pnlColor = currentPnl >= 0 ? 'var(--accent2)' : 'var(--danger)';
+    const tpPct = Math.min(100, Math.abs(currentPnl / m.tp * 100)).toFixed(0);
+    const slPct = Math.min(100, Math.abs(currentPnl / m.sl * 100)).toFixed(0);
+
+    // Bar fill width: center = 0%, right = TP, left = SL
+    const barPct = 50 + (currentPnl / (m.tp + m.sl)) * 50;
+    const barClamped = Math.max(2, Math.min(98, barPct));
+    const barColor = currentPnl >= 0 ? 'var(--accent2)' : 'var(--danger)';
+
+    if (monitor) {
+      monitor.innerHTML = `
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+          <span style="color:var(--muted);">📊 ${token} · ${elapsed}s</span>
+          <span style="color:${pnlColor};font-weight:700;">${currentPnl>=0?'+':''}${currentPnl.toFixed(2)}% (${currentPnl>=0?'+':'-'}$${Math.abs(pnlUSD)})</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.58rem;color:var(--muted);margin-bottom:3px;">
+          <span style="color:var(--danger)">🛑 SL -${m.sl}%</span>
+          <span style="color:var(--muted)">ENTRY</span>
+          <span style="color:var(--accent2)">🎯 TP +${m.tp}%</span>
+        </div>
+        <div class="monitor-bar-bg">
+          <div class="monitor-bar-fill" style="width:${Math.abs(barClamped-50)*2}%;background:${barColor};${currentPnl>=0?'left:50%':'right:'+(100-barClamped)+'%;left:auto'}"></div>
+          <div class="monitor-center"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.58rem;margin-top:4px;">
+          <span style="color:var(--danger)">-$${(size*m.sl/100).toFixed(1)}</span>
+          <span style="color:var(--muted);">$${parseFloat(size).toFixed(0)} USDT</span>
+          <span style="color:var(--accent2)">+$${(size*m.tp/100).toFixed(1)}</span>
+        </div>
+      `;
+    }
+
+    // ── AUTO TRIGGER TP ──
+    if (currentPnl >= m.tp) {
+      clearInterval(interval);
+      delete activeMonitors[alertId];
+      const profitUSD = (size * m.tp / 100).toFixed(2);
+      if (monitor) {
+        monitor.innerHTML = `
+          <div style="color:var(--accent2);font-weight:700;margin-bottom:4px;">🎯 TAKE PROFIT HIT! +${m.tp}%</div>
+          <div style="color:var(--muted);">✅ Đã chốt lời: <span style="color:var(--accent2)">+$${profitUSD} USDT</span></div>
+          <div style="color:var(--muted);font-size:.58rem;margin-top:3px;">Lệnh bán tự động trong 0.1s · Bảo toàn lợi nhuận ✅</div>
+        `;
+      }
+      addTrade(token, size, m.tp, profitUSD, Math.floor(rnd(5,20)));
+      showToast(`🎯 TP HIT! ${token} chốt lời +${m.tp}% · +$${profitUSD}`);
+      flash('sk1','sk8');
+    }
+
+    // ── AUTO TRIGGER SL ──
+    if (currentPnl <= -m.sl) {
+      clearInterval(interval);
+      delete activeMonitors[alertId];
+      const lossUSD = (size * m.sl / 100).toFixed(2);
+      if (monitor) {
+        monitor.innerHTML = `
+          <div style="color:var(--danger);font-weight:700;margin-bottom:4px;">🛑 STOP LOSS HIT! -${m.sl}%</div>
+          <div style="color:var(--muted);">❌ Đã cắt lỗ: <span style="color:var(--danger)">-$${lossUSD} USDT</span></div>
+          <div style="color:var(--muted);font-size:.58rem;margin-top:3px;">Lệnh bán tự động trong 0.1s · Bảo vệ vốn ✅</div>
+        `;
+      }
+      showToast(`🛑 SL HIT! ${token} cắt lỗ -${m.sl}% · -$${lossUSD}`);
+      flash('sk1');
+    }
+
+  }, 3000); // update every 3s for demo
+
+  activeMonitors[alertId].intervalId = interval;
+}
+
+</script>
+</body>
+</html>
